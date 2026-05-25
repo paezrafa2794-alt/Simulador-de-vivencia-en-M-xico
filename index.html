@@ -1,0 +1,1943 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Seeds of Abundance</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --cream:#F5F0E8;--cream-l:#FAF7F2;--cream-d:#EDE5D8;--sand:#D4C4A8;
+  --clay:#C4A882;--bark:#8B7355;--terra:#C4714A;--charcoal:#1A1714;
+  --stone:#6B6560;--gold:#B8954A;--sage:#5A8A6A;--slate:#6A8AA0;
+  --danger:#A85454;--white:#FFFFFF;--shadow:rgba(26,23,20,0.1)
+}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--charcoal);min-height:100vh;overflow-x:hidden}
+.hidden{display:none!important}
+/* ======= COVER ======= */
+#cover{position:fixed;inset:0;background:#1A2030;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:32px 24px;z-index:200}
+#cover svg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cover-cta{position:relative;z-index:10;text-align:center}
+.cover-cta p{color:rgba(245,240,232,0.6);font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px}
+.btn-cover{background:var(--cream-l);color:var(--charcoal);border:none;padding:16px 56px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;cursor:pointer;transition:all .3s}
+.btn-cover:hover{background:var(--charcoal);color:var(--cream-l)}
+/* ======= ONBOARDING ======= */
+#onboarding{min-height:100vh;background:var(--cream);display:flex;flex-direction:column}
+.ob-head{padding:28px 28px 0;flex-shrink:0}
+.ob-brand{font-family:'Cormorant Garamond',serif;font-size:17px;letter-spacing:1px;color:var(--bark);margin-bottom:20px}
+.ob-progress{display:flex;gap:6px;padding-bottom:20px;border-bottom:1px solid var(--cream-d)}
+.ob-dot{height:2px;flex:1;background:var(--cream-d);border-radius:2px;transition:background .4s}
+.ob-dot.active{background:var(--bark)}
+.ob-dot.done{background:var(--gold)}
+.ob-body{flex:1;padding:32px 28px 20px;overflow-y:auto}
+.ob-h{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:400;line-height:1.15;margin-bottom:6px}
+.ob-sh{font-size:13px;color:var(--stone);margin-bottom:32px;font-weight:300}
+.ob-label{display:block;font-size:10px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:var(--stone);margin-bottom:8px}
+.ob-input{width:100%;padding:13px 15px;background:var(--white);border:1.5px solid var(--cream-d);border-radius:2px;font-family:'DM Sans',sans-serif;font-size:16px;color:var(--charcoal);transition:border-color .2s;-webkit-appearance:none;appearance:none}
+.ob-input:focus{outline:none;border-color:var(--bark)}
+.ob-field{margin-bottom:24px}
+.family-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:28px}
+.f-card{background:var(--white);border:1.5px solid var(--cream-d);border-radius:4px;padding:18px 14px;cursor:pointer;transition:all .2s;text-align:center}
+.f-card:hover{border-color:var(--clay)}
+.f-card.sel{border-color:var(--bark);background:var(--cream)}
+.f-icon{font-size:28px;margin-bottom:7px}
+.f-name{font-size:12px;font-weight:500;color:var(--charcoal)}
+.f-desc{font-size:10px;color:var(--stone);margin-top:3px}
+.rule-card{background:var(--white);border:1px solid var(--cream-d);border-radius:4px;padding:20px;margin-bottom:16px}
+.rule-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--cream-d)}
+.rule-row:last-child{border:none}
+.rule-lbl{font-size:13px;color:var(--stone)}
+.rule-r{text-align:right}
+.rule-amt{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600}
+.rule-pct{font-size:10px;color:var(--stone)}
+.children-list{margin-top:12px}
+.child-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.child-row input{flex:1;padding:11px 13px;background:var(--white);border:1.5px solid var(--cream-d);border-radius:2px;font-family:'DM Sans',sans-serif;font-size:15px;color:var(--charcoal)}
+.child-row input:focus{outline:none;border-color:var(--bark)}
+.btn-add{background:none;border:1.5px solid var(--cream-d);color:var(--stone);padding:11px 18px;border-radius:2px;font-size:12px;cursor:pointer;transition:all .2s}
+.btn-add:hover{border-color:var(--bark);color:var(--bark)}
+.ob-foot{padding:20px 28px;border-top:1px solid var(--cream-d);background:var(--cream);flex-shrink:0}
+.btn-primary{width:100%;padding:15px;background:var(--charcoal);color:var(--cream-l);border:none;border-radius:2px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:background .2s}
+.btn-primary:hover{background:var(--bark)}
+.btn-primary:disabled{background:var(--sand);cursor:not-allowed}
+.btn-back{background:none;border:1.5px solid var(--cream-d);color:var(--stone);padding:11px;width:100%;margin-top:8px;border-radius:2px;font-family:'DM Sans',sans-serif;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .2s}
+.btn-back:hover{border-color:var(--bark);color:var(--bark)}
+/* ======= GAME ======= */
+#game{min-height:100vh;background:var(--cream);display:flex;flex-direction:column;padding-bottom:80px}
+.g-header{background:var(--charcoal);color:var(--cream-l);padding:14px 20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:50;flex-shrink:0}
+.g-brand{font-family:'Cormorant Garamond',serif;font-size:17px;letter-spacing:1px;font-style:italic}
+.g-month-info{text-align:right}
+.g-month{font-size:13px;font-weight:500}
+.g-year{font-size:10px;opacity:.6;letter-spacing:1.5px;text-transform:uppercase}
+.g-tabs{display:flex;background:var(--cream-d);overflow-x:auto;border-bottom:1px solid var(--sand);flex-shrink:0;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.g-tabs::-webkit-scrollbar{display:none}
+.g-tab{padding:13px 18px;font-size:11px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:var(--stone);cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:all .2s}
+.g-tab.act{color:var(--charcoal);border-bottom-color:var(--bark);background:var(--cream)}
+.g-tab:hover:not(.act){color:var(--charcoal)}
+.g-content{padding:22px 22px 0;overflow-y:auto}
+.sec-h{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:400;margin-bottom:4px}
+.sec-sh{font-size:12px;color:var(--stone);margin-bottom:20px}
+/* Metric cards */
+.m-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.m-card{background:var(--white);border:1px solid var(--cream-d);border-radius:4px;padding:16px}
+.m-name{font-size:10px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:var(--stone);margin-bottom:6px}
+.m-val{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:600;line-height:1;margin-bottom:7px}
+.m-bar{height:3px;background:var(--cream-d);border-radius:3px;overflow:hidden;margin-bottom:4px}
+.m-fill{height:100%;border-radius:3px;transition:width .6s ease}
+.m-label{font-size:10px;color:var(--stone)}
+/* Finance rows */
+.card{background:var(--white);border:1px solid var(--cream-d);border-radius:4px;padding:18px;margin-bottom:12px}
+.f-row{display:flex;justify-content:space-between;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--cream-d)}
+.f-row:last-child{border:none}
+.f-lbl{font-size:13px;color:var(--stone)}
+.f-val{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600}
+.pos{color:var(--sage)}.neg{color:var(--danger)}.neu{color:var(--charcoal)}
+/* Rule gauge */
+.gauge-row{margin-bottom:14px}
+.gauge-h{display:flex;justify-content:space-between;margin-bottom:5px}
+.gauge-lbl{font-size:12px;color:var(--stone)}
+.gauge-pct{font-size:12px;font-weight:500}
+.gauge-bar{height:6px;background:var(--cream-d);border-radius:6px;overflow:hidden}
+.gauge-fill{height:100%;border-radius:6px;transition:width .4s}
+/* Expense sliders */
+.exp-item{background:var(--white);border:1px solid var(--cream-d);border-radius:4px;padding:15px 16px;margin-bottom:9px}
+.exp-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.exp-name{font-size:13px;font-weight:500}
+.exp-tag{font-size:9px;padding:2px 8px;border-radius:20px;font-weight:500;letter-spacing:.5px}
+.tag-n{background:#E5EFE5;color:#4A7A4A}
+.tag-w{background:#F0EAE0;color:#8B6A30}
+.tag-s{background:#E5EAF0;color:#4A6A8A}
+.exp-amt{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;margin-bottom:6px}
+input[type=range]{width:100%;-webkit-appearance:none;appearance:none;height:3px;background:var(--cream-d);border-radius:3px;outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--bark);cursor:pointer;transition:transform .15s}
+input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.2)}
+input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--bark);border:none;cursor:pointer}
+/* Investments */
+.inv-card{background:var(--white);border:1px solid var(--cream-d);border-radius:4px;padding:16px;margin-bottom:9px}
+.inv-h{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
+.inv-name{font-size:14px;font-weight:500}
+.inv-rate{font-size:11px;color:var(--sage);font-weight:500}
+.inv-total{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;margin-bottom:3px}
+.inv-gain{font-size:11px;color:var(--sage)}
+.inv-row{display:flex;gap:8px;margin-top:10px}
+.inv-row input[type=number]{flex:1;padding:9px 12px;border:1.5px solid var(--cream-d);border-radius:2px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--charcoal);-webkit-appearance:none;appearance:none}
+.inv-row input[type=number]:focus{outline:none;border-color:var(--bark)}
+.btn-inv{padding:9px 16px;background:var(--charcoal);color:var(--cream);border:none;border-radius:2px;font-size:11px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:background .2s;white-space:nowrap}
+.btn-inv:hover{background:var(--bark)}
+/* Loans */
+.loan-card{background:var(--white);border:1px solid var(--cream-d);border-radius:4px;padding:16px;margin-bottom:9px}
+.loan-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.loan-name{font-size:13px;font-weight:500}
+.loan-status{font-size:10px;padding:3px 10px;border-radius:20px;background:#F0E8E0;color:var(--bark)}
+.loan-remaining{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:var(--danger)}
+.loan-info{font-size:11px;color:var(--stone);margin-top:4px}
+.btn-danger{padding:9px 16px;background:var(--danger);color:var(--white);border:none;border-radius:2px;font-size:11px;letter-spacing:1px;text-transform:uppercase;cursor:pointer}
+/* Events */
+.ev-item{display:flex;gap:12px;padding:13px 0;border-bottom:1px solid var(--cream-d)}
+.ev-icon{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.ev-pos{background:#E5EFE5}.ev-neg{background:#F0E5E5}.ev-neu{background:var(--cream-d)}
+.ev-body{flex:1}
+.ev-title{font-size:13px;font-weight:500;margin-bottom:2px}
+.ev-desc{font-size:11px;color:var(--stone)}
+.ev-date{font-size:10px;color:var(--clay);flex-shrink:0}
+/* Family */
+.mem-card{background:var(--white);border:1px solid var(--cream-d);border-radius:4px;padding:15px 16px;margin-bottom:9px;display:flex;justify-content:space-between;align-items:center}
+.mem-l{display:flex;align-items:center;gap:12px}
+.mem-av{width:40px;height:40px;border-radius:50%;background:var(--cream-d);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.mem-name{font-size:14px;font-weight:500}
+.mem-role{font-size:11px;color:var(--stone)}
+.mem-r{text-align:right}
+.mem-income{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600}
+.mem-label{font-size:10px;color:var(--stone)}
+.warn-card{background:#FFF0E8;border:1px solid #E0C0A0;border-radius:4px;padding:14px 16px;margin-bottom:14px}
+.warn-text{font-size:12px;color:#8B5030;line-height:1.5}
+/* Advance btn */
+.adv-wrap{position:fixed;bottom:0;left:0;right:0;padding:14px 22px;background:var(--cream);border-top:1px solid var(--cream-d);z-index:40}
+.btn-adv{width:100%;padding:15px;background:var(--charcoal);color:var(--cream-l);border:none;border-radius:2px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;cursor:pointer;transition:background .2s;display:flex;align-items:center;justify-content:center;gap:10px}
+.btn-adv:hover{background:var(--bark)}
+/* Modal */
+.modal-bg{position:fixed;inset:0;background:rgba(26,23,20,.75);z-index:300;display:flex;align-items:center;justify-content:center;padding:24px}
+.modal{background:var(--cream-l);border-radius:4px;padding:36px 30px;max-width:400px;width:100%;text-align:center}
+.modal-ico{font-size:52px;margin-bottom:14px}
+.modal-h{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:400;margin-bottom:8px}
+.modal-d{font-size:13px;color:var(--stone);line-height:1.6;margin-bottom:14px}
+.modal-impact{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;margin-bottom:24px}
+.btn-modal{padding:13px 40px;background:var(--charcoal);color:var(--cream);border:none;border-radius:2px;font-size:12px;letter-spacing:2px;text-transform:uppercase;cursor:pointer}
+/* Game over */
+#gameover{position:fixed;inset:0;background:var(--cream-l);z-index:400;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 28px;text-align:center;overflow-y:auto}
+.go-ico{font-size:64px;margin-bottom:20px}
+.go-h{font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:300;line-height:1.1;margin-bottom:14px}
+.go-d{font-size:15px;color:var(--stone);line-height:1.7;max-width:340px;margin-bottom:32px}
+.go-stats{background:var(--white);border:1px solid var(--cream-d);border-radius:4px;padding:22px 28px;margin-bottom:28px;width:100%;max-width:340px}
+.go-row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--cream-d)}
+.go-row:last-child{border:none}
+.go-key{font-size:13px;color:var(--stone)}
+.go-v{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600}
+.btn-restart{padding:15px 48px;background:var(--charcoal);color:var(--cream);border:none;border-radius:2px;font-size:13px;letter-spacing:2px;text-transform:uppercase;cursor:pointer}
+/* Info badge */
+.info-badge{display:inline-flex;align-items:center;gap:5px;background:var(--cream-d);padding:4px 12px;border-radius:20px;font-size:11px;color:var(--stone)}
+/* Summary big number */
+.big-num{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;line-height:1;color:var(--charcoal)}
+.big-label{font-size:11px;color:var(--stone);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
+.balance-card{background:var(--white);border:1px solid var(--cream-d);border-radius:4px;padding:22px;margin-bottom:12px;text-align:center}
+.divider{height:1px;background:var(--cream-d);margin:18px 0}
+.col2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+/* ===== FAMILY ADD MODAL ===== */
+.fam-modal{background:var(--cream-l);border-radius:6px;padding:32px 28px;max-width:420px;width:100%}
+.fam-modal-h{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:400;margin-bottom:6px;text-align:center}
+.fam-modal-sh{font-size:13px;color:var(--stone);text-align:center;margin-bottom:24px}
+.fam-opt-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.fam-opt{background:var(--white);border:1.5px solid var(--cream-d);border-radius:4px;padding:16px 12px;cursor:pointer;transition:all .2s;text-align:center}
+.fam-opt:hover{border-color:var(--bark);background:var(--cream)}
+.fam-opt-ico{font-size:28px;margin-bottom:6px}
+.fam-opt-lbl{font-size:12px;font-weight:500}
+.fam-add-form{background:var(--cream);border-radius:4px;padding:16px;margin-bottom:16px;display:none}
+.fam-add-form.show{display:block}
+.btn-skip{background:none;border:none;color:var(--stone);font-size:13px;text-decoration:underline;cursor:pointer;width:100%;padding:8px;margin-top:4px}
+/* ===== LONG TERM PURCHASES ===== */
+.ltp-section{margin-top:24px}
+.ltp-section-h{font-size:11px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:var(--stone);margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
+.btn-add-ltp{background:var(--charcoal);color:var(--cream);border:none;padding:6px 14px;border-radius:2px;font-size:11px;letter-spacing:1px;text-transform:uppercase;cursor:pointer}
+.btn-add-ltp:hover{background:var(--bark)}
+.ltp-card{background:var(--white);border:1px solid var(--cream-d);border-radius:4px;padding:15px 16px;margin-bottom:9px}
+.ltp-card-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.ltp-card-name{font-size:13px;font-weight:500}
+.ltp-card-monthly{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--terra)}
+.ltp-progress{height:4px;background:var(--cream-d);border-radius:4px;overflow:hidden;margin-top:8px}
+.ltp-progress-fill{height:100%;background:var(--bark);border-radius:4px;transition:width .4s}
+.ltp-info{font-size:11px;color:var(--stone);margin-top:5px}
+.ltp-form{background:var(--cream);border:1px solid var(--cream-d);border-radius:4px;padding:18px;margin-bottom:12px}
+.ltp-form-title{font-size:13px;font-weight:500;margin-bottom:14px}
+.ltp-presets{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.ltp-preset{background:var(--white);border:1.5px solid var(--cream-d);border-radius:20px;padding:5px 12px;font-size:11px;cursor:pointer;transition:all .2s}
+.ltp-preset:hover{border-color:var(--bark);color:var(--bark)}
+.ltp-row{display:flex;gap:8px;margin-top:10px}
+.btn-del{background:none;border:1px solid var(--cream-d);color:var(--stone);padding:4px 10px;border-radius:2px;font-size:11px;cursor:pointer}
+.btn-del:hover{border-color:var(--danger);color:var(--danger)}
+/* ===== AVATAR CUSTOMIZER ===== */
+.av-preview{display:flex;justify-content:center;margin-bottom:24px}
+.av-preview-ring{width:110px;height:140px;border-radius:50% 50% 40% 40%;background:var(--cream-d);display:flex;align-items:center;justify-content:center;border:2px solid var(--sand)}
+.av-section{margin-bottom:20px}
+.av-section-lbl{font-size:10px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:var(--stone);margin-bottom:10px}
+.av-options{display:flex;gap:8px;flex-wrap:wrap}
+.av-swatch{width:32px;height:32px;border-radius:50%;cursor:pointer;border:2.5px solid transparent;transition:all .2s;flex-shrink:0}
+.av-swatch.sel{border-color:var(--charcoal);transform:scale(1.15)}
+.av-swatch:hover{transform:scale(1.1)}
+.av-style-opt{width:52px;height:52px;border-radius:4px;cursor:pointer;border:2px solid var(--cream-d);background:var(--white);display:flex;align-items:center;justify-content:center;transition:all .2s;overflow:hidden;flex-shrink:0}
+.av-style-opt.sel{border-color:var(--bark);background:var(--cream)}
+.av-style-opt:hover{border-color:var(--clay)}
+/* Avatar in header */
+.g-avatar{width:32px;height:32px;border-radius:50%;overflow:hidden;background:var(--cream-d);border:1.5px solid rgba(245,240,232,0.3);flex-shrink:0}
+.g-header-left{display:flex;align-items:center;gap:10px}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div id="cover">
+<svg viewBox="0 0 420 700" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+<defs>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0%" stop-color="#8AAFC8"/><stop offset="55%" stop-color="#B09878"/><stop offset="100%" stop-color="#C8A874"/>
+</linearGradient>
+<linearGradient id="gnd" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0%" stop-color="#C8A874"/><stop offset="100%" stop-color="#B89060"/>
+</linearGradient>
+</defs>
+<!-- Sky + Ground -->
+<rect width="420" height="700" fill="url(#sky)"/>
+<rect x="0" y="440" width="420" height="260" fill="url(#gnd)"/>
+<!-- Distant mountains -->
+<path d="M0,440 Q60,400 120,420 Q180,440 240,415 Q300,390 360,420 Q390,435 420,425 L420,440 Z" fill="#B8986A" opacity=".5"/>
+<!-- Left arch/portal -->
+<rect x="50" y="300" width="10" height="80" fill="#A89878" rx="2"/>
+<rect x="78" y="300" width="10" height="80" fill="#A89878" rx="2"/>
+<path d="M48,302 Q64,278 90,302" fill="none" stroke="#A89878" stroke-width="10"/>
+<rect x="30" y="355" width="18" height="12" fill="#A89878" rx="1"/>
+<!-- Arch staircase -->
+<rect x="45" y="380" width="50" height="5" fill="#988060"/>
+<rect x="42" y="385" width="56" height="5" fill="#907858"/>
+<rect x="39" y="390" width="62" height="5" fill="#887050"/>
+<!-- Axolotl swirl path (visual hint) -->
+<path d="M90,350 Q130,310 175,270 Q220,230 280,195 Q320,172 360,160" fill="none" stroke="rgba(255,215,195,0.25)" stroke-width="28" stroke-linecap="round"/>
+<!-- AXOLOTLS along swirl -->
+<!-- Axolotl 1 -->
+<g transform="translate(108,338) rotate(-35)">
+<ellipse cx="0" cy="0" rx="16" ry="9" fill="#F4B8A8"/><ellipse cx="18" cy="0" rx="7" ry="5" fill="#F4B8A8"/>
+<line x1="-14" y1="0" x2="-14" y2="-12" stroke="#E89090" stroke-width="4" stroke-linecap="round"/>
+<line x1="-8" y1="0" x2="-9" y2="-14" stroke="#E89090" stroke-width="4" stroke-linecap="round"/>
+<line x1="-2" y1="0" x2="-2" y2="-13" stroke="#E89090" stroke-width="4" stroke-linecap="round"/>
+<circle cx="14" cy="-2" r="2" fill="#333"/>
+<path d="M-16,0 Q-26,-3 -30,4 Q-26,9 -16,7" fill="#F4B8A8"/>
+<line x1="-8" y1="9" x2="-10" y2="17" stroke="#F4B8A8" stroke-width="4" stroke-linecap="round"/>
+<line x1="4" y1="9" x2="3" y2="17" stroke="#F4B8A8" stroke-width="4" stroke-linecap="round"/>
+</g>
+<!-- Axolotl 2 -->
+<g transform="translate(170,278) rotate(-55)">
+<ellipse cx="0" cy="0" rx="19" ry="10" fill="#FAD0C0"/><ellipse cx="21" cy="0" rx="8" ry="6" fill="#FAD0C0"/>
+<line x1="-17" y1="0" x2="-17" y2="-13" stroke="#E8A090" stroke-width="5" stroke-linecap="round"/>
+<line x1="-10" y1="0" x2="-11" y2="-15" stroke="#E8A090" stroke-width="5" stroke-linecap="round"/>
+<line x1="-3" y1="0" x2="-3" y2="-15" stroke="#E8A090" stroke-width="5" stroke-linecap="round"/>
+<circle cx="17" cy="-2" r="2.5" fill="#333"/>
+<path d="M-19,0 Q-31,-4 -36,5 Q-31,11 -19,8" fill="#FAD0C0"/>
+<line x1="-9" y1="10" x2="-11" y2="19" stroke="#FAD0C0" stroke-width="4" stroke-linecap="round"/>
+<line x1="5" y1="10" x2="4" y2="19" stroke="#FAD0C0" stroke-width="4" stroke-linecap="round"/>
+</g>
+<!-- Axolotl 3 (bigger) -->
+<g transform="translate(240,232) rotate(-68)">
+<ellipse cx="0" cy="0" rx="22" ry="12" fill="#FBE0D0"/><ellipse cx="24" cy="0" rx="9" ry="7" fill="#FBE0D0"/>
+<line x1="-20" y1="0" x2="-20" y2="-15" stroke="#E8B0A0" stroke-width="5" stroke-linecap="round"/>
+<line x1="-12" y1="0" x2="-13" y2="-17" stroke="#E8B0A0" stroke-width="5" stroke-linecap="round"/>
+<line x1="-4" y1="0" x2="-4" y2="-17" stroke="#E8B0A0" stroke-width="5" stroke-linecap="round"/>
+<circle cx="20" cy="-2" r="3" fill="#333"/>
+<path d="M-22,0 Q-36,-5 -42,6 Q-36,13 -22,9" fill="#FBE0D0"/>
+</g>
+<!-- Axolotl 4 -->
+<g transform="translate(305,192) rotate(-78)">
+<ellipse cx="0" cy="0" rx="16" ry="9" fill="#F8D0C5"/><ellipse cx="18" cy="0" rx="7" ry="5" fill="#F8D0C5"/>
+<line x1="-14" y1="0" x2="-14" y2="-12" stroke="#E0A098" stroke-width="4" stroke-linecap="round"/>
+<line x1="-8" y1="0" x2="-9" y2="-14" stroke="#E0A098" stroke-width="4" stroke-linecap="round"/>
+<line x1="-2" y1="0" x2="-2" y2="-13" stroke="#E0A098" stroke-width="4" stroke-linecap="round"/>
+<circle cx="14" cy="-2" r="2" fill="#333"/>
+<path d="M-16,0 Q-26,-3 -30,4 Q-26,9 -16,7" fill="#F8D0C5"/>
+</g>
+<!-- Axolotl 5 -->
+<g transform="translate(355,163) rotate(-82)">
+<ellipse cx="0" cy="0" rx="14" ry="8" fill="#F5C8B5"/><ellipse cx="16" cy="0" rx="6" ry="4" fill="#F5C8B5"/>
+<line x1="-12" y1="0" x2="-12" y2="-11" stroke="#D89888" stroke-width="3.5" stroke-linecap="round"/>
+<line x1="-7" y1="0" x2="-8" y2="-12" stroke="#D89888" stroke-width="3.5" stroke-linecap="round"/>
+<line x1="-2" y1="0" x2="-2" y2="-12" stroke="#D89888" stroke-width="3.5" stroke-linecap="round"/>
+<circle cx="12" cy="-2" r="1.8" fill="#333"/>
+<path d="M-14,0 Q-22,-3 -26,4 Q-22,8 -14,6" fill="#F5C8B5"/>
+</g>
+<!-- Floating dollhouse cross-section top right -->
+<g transform="translate(332,108)">
+<rect x="0" y="15" width="72" height="55" fill="none" stroke="#C4A882" stroke-width="2"/>
+<line x1="36" y1="15" x2="36" y2="70" stroke="#C4A882" stroke-width="1.5"/>
+<line x1="0" y1="42" x2="72" y2="42" stroke="#C4A882" stroke-width="1.5"/>
+<polygon points="36,0 -4,17 76,17" fill="none" stroke="#A87A5A" stroke-width="2"/>
+<!-- Windows -->
+<rect x="6" y="20" width="14" height="14" fill="none" stroke="#C4A882" stroke-width="1"/>
+<rect x="52" y="20" width="14" height="14" fill="none" stroke="#C4A882" stroke-width="1"/>
+<!-- Door -->
+<rect x="30" y="55" width="12" height="15" fill="none" stroke="#A87A5A" stroke-width="1"/>
+</g>
+<!-- Big golden clock -->
+<circle cx="372" cy="308" r="44" fill="#C4A850" stroke="#8B7840" stroke-width="3"/>
+<circle cx="372" cy="308" r="38" fill="#F0E8D0"/>
+<line x1="372" y1="276" x2="372" y2="283" stroke="#2A2010" stroke-width="2"/>
+<line x1="372" y1="340" x2="372" y2="333" stroke="#2A2010" stroke-width="2"/>
+<line x1="340" y1="308" x2="347" y2="308" stroke="#2A2010" stroke-width="2"/>
+<line x1="404" y1="308" x2="397" y2="308" stroke="#2A2010" stroke-width="2"/>
+<line x1="372" y1="308" x2="368" y2="278" stroke="#2A2010" stroke-width="3" stroke-linecap="round"/>
+<line x1="372" y1="308" x2="390" y2="290" stroke="#2A2010" stroke-width="2" stroke-linecap="round"/>
+<!-- Smaller clock -->
+<circle cx="360" cy="378" r="26" fill="#C4A850" stroke="#8B7840" stroke-width="2"/>
+<circle cx="360" cy="378" r="22" fill="#F0E8D0"/>
+<line x1="360" y1="358" x2="360" y2="363" stroke="#2A2010" stroke-width="1.5"/>
+<line x1="360" y1="398" x2="360" y2="393" stroke="#2A2010" stroke-width="1.5"/>
+<line x1="340" y1="378" x2="345" y2="378" stroke="#2A2010" stroke-width="1.5"/>
+<line x1="380" y1="378" x2="375" y2="378" stroke="#2A2010" stroke-width="1.5"/>
+<line x1="360" y1="378" x2="357" y2="360" stroke="#2A2010" stroke-width="2" stroke-linecap="round"/>
+<line x1="360" y1="378" x2="372" y2="370" stroke="#2A2010" stroke-width="1.5" stroke-linecap="round"/>
+<!-- Dollar sign -->
+<text x="345" y="252" font-family="Georgia,serif" font-size="26" fill="#B8954A" opacity=".85">$</text>
+<!-- Winding metallic ribbon right -->
+<path d="M375,415 Q395,435 388,460 Q378,485 362,498 Q348,510 355,535" fill="none" stroke="#C4B890" stroke-width="7" stroke-linecap="round" opacity=".7"/>
+<path d="M370,412 Q390,432 383,457 Q373,482 357,495 Q343,507 350,532" fill="none" stroke="#E0D0A8" stroke-width="3" stroke-linecap="round" opacity=".5"/>
+<!-- FAMILY FIGURES -->
+<!-- Girl 1 - left (orange shirt, holding clock + axolotl) -->
+<g transform="translate(128,400)">
+<!-- Legs -->
+<rect x="-16" y="82" width="13" height="75" fill="#6A90B0" rx="2"/>
+<rect x="3" y="82" width="13" height="75" fill="#6A90B0" rx="2"/>
+<!-- Shoes -->
+<ellipse cx="-9" cy="159" rx="13" ry="6" fill="#5A6A9A"/>
+<ellipse cx="9" cy="159" rx="13" ry="6" fill="#5A6A9A"/>
+<!-- Shorts -->
+<rect x="-17" y="74" width="34" height="12" fill="#7A9AC0" rx="2"/>
+<!-- Body -->
+<rect x="-18" y="14" width="36" height="63" fill="#D4704A" rx="4"/>
+<!-- Arms -->
+<path d="M-18,18 L-34,26 L-30,65 L-18,60 Z" fill="#D4704A"/>
+<path d="M18,18 L34,26 L30,65 L18,60 Z" fill="#D4704A"/>
+<!-- Left hand holding small axolotl -->
+<ellipse cx="-30" cy="67" rx="9" ry="7" fill="#D8C0A0"/>
+<!-- Small axolotl in hand -->
+<ellipse cx="-36" cy="63" rx="8" ry="5" fill="#F4B8A8"/>
+<ellipse cx="-28" cy="63" rx="4" ry="3" fill="#F4B8A8"/>
+<line x1="-40" y1="63" x2="-40" y2="57" stroke="#E89090" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="-37" y1="63" x2="-37" y2="57" stroke="#E89090" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="-34" y1="63" x2="-34" y2="57" stroke="#E89090" stroke-width="2.5" stroke-linecap="round"/>
+<!-- Right hand holding clock -->
+<ellipse cx="30" cy="67" rx="9" ry="7" fill="#D8C0A0"/>
+<circle cx="30" cy="62" r="9" fill="#C4A850" stroke="#8B7840" stroke-width="1.5"/>
+<circle cx="30" cy="62" r="7" fill="#F0E8D0"/>
+<line x1="30" y1="56" x2="30" y2="59" stroke="#333" stroke-width="1"/>
+<line x1="30" y1="62" x2="27" y2="57" stroke="#333" stroke-width="1.2" stroke-linecap="round"/>
+<line x1="30" y1="62" x2="35" y2="60" stroke="#333" stroke-width="1" stroke-linecap="round"/>
+<!-- Neck -->
+<rect x="-7" y="4" width="14" height="12" fill="#D8C0A0"/>
+<!-- Head -->
+<ellipse cx="0" cy="-13" rx="20" ry="21" fill="#D8C0A0"/>
+<!-- Hair -->
+<path d="M-20,-24 Q0,-44 20,-24 Q22,-12 18,-5 Q0,0 -18,-5 Q-22,-12 -20,-24 Z" fill="#B09050"/>
+<!-- Eyes -->
+<ellipse cx="-7" cy="-15" rx="3" ry="4" fill="white"/>
+<ellipse cx="7" cy="-15" rx="3" ry="4" fill="white"/>
+<circle cx="-7" cy="-13" r="2.5" fill="#2A3040"/>
+<circle cx="7" cy="-13" r="2.5" fill="#2A3040"/>
+</g>
+<!-- DAD - center -->
+<g transform="translate(200,355)">
+<!-- Legs -->
+<rect x="-20" y="103" width="17" height="100" fill="#4A607A" rx="3"/>
+<rect x="3" y="103" width="17" height="100" fill="#4A607A" rx="3"/>
+<!-- Shoes -->
+<ellipse cx="-11" cy="205" rx="16" ry="7" fill="#2C1E10"/>
+<ellipse cx="11" cy="205" rx="16" ry="7" fill="#2C1E10"/>
+<!-- Belt -->
+<rect x="-22" y="97" width="44" height="7" fill="#5A3E20"/>
+<rect x="-4" y="95" width="8" height="11" fill="#7A5A30"/>
+<!-- Torso -->
+<path d="M-22,0 L-28,12 L-28,97 L28,97 L28,12 L22,0 Z" fill="#6A8AA4"/>
+<!-- Button line -->
+<line x1="0" y1="6" x2="0" y2="97" stroke="#5A7A94" stroke-width="1.5"/>
+<!-- Collar -->
+<path d="M-10,0 L0,10 L10,0" fill="none" stroke="#5A7A94" stroke-width="2"/>
+<!-- Arms -->
+<path d="M-28,12 L-46,22 L-42,82 L-28,76 Z" fill="#6A8AA4"/>
+<path d="M28,12 L46,22 L42,82 L28,76 Z" fill="#6A8AA4"/>
+<!-- Hands -->
+<ellipse cx="-36" cy="84" rx="10" ry="8" fill="#D4BCA0"/>
+<ellipse cx="36" cy="84" rx="10" ry="8" fill="#D4BCA0"/>
+<!-- Neck -->
+<rect x="-9" y="-10" width="18" height="14" fill="#D4BCA0"/>
+<!-- Head -->
+<ellipse cx="0" cy="-33" rx="24" ry="26" fill="#D4BCA0"/>
+<!-- Hair dark -->
+<path d="M-24,-45 Q0,-64 24,-45 Q26,-30 22,-20 Q0,-14 -22,-20 Q-26,-30 -24,-45 Z" fill="#3A2818"/>
+<!-- Eyes staring -->
+<ellipse cx="-9" cy="-35" rx="4" ry="5" fill="white"/>
+<ellipse cx="9" cy="-35" rx="4" ry="5" fill="white"/>
+<circle cx="-9" cy="-33" r="3" fill="#1C2832"/>
+<circle cx="9" cy="-33" r="3" fill="#1C2832"/>
+<!-- Subtle expression lines -->
+<path d="M-14,-28 Q-9,-25 -4,-28" fill="none" stroke="#C0A890" stroke-width="1"/>
+<path d="M4,-28 Q9,-25 14,-28" fill="none" stroke="#C0A890" stroke-width="1"/>
+</g>
+<!-- MOM - right of dad -->
+<g transform="translate(272,368)">
+<!-- Dress/skirt -->
+<path d="M-20,12 Q-26,70 -30,130 Q0,140 30,130 Q26,70 20,12 Z" fill="#7A9AB4"/>
+<!-- Dress top -->
+<path d="M-20,0 Q0,8 20,0 L20,14 Q0,20 -20,14 Z" fill="#7A9AB4"/>
+<!-- Shoes -->
+<ellipse cx="-12" cy="138" rx="14" ry="6" fill="#5A3A20"/>
+<ellipse cx="12" cy="138" rx="14" ry="6" fill="#5A3A20"/>
+<!-- Arms -->
+<path d="M-20,4 L-36,14 L-32,68 L-20,62 Z" fill="#7A9AB4"/>
+<path d="M20,4 L36,14 L32,68 L20,62 Z" fill="#7A9AB4"/>
+<!-- Hands -->
+<ellipse cx="-28" cy="70" rx="9" ry="7" fill="#D8C0A0"/>
+<ellipse cx="28" cy="70" rx="9" ry="7" fill="#D8C0A0"/>
+<!-- Neck -->
+<rect x="-7" y="-8" width="14" height="12" fill="#D8C0A0"/>
+<!-- Head -->
+<ellipse cx="0" cy="-26" rx="21" ry="23" fill="#D8C0A0"/>
+<!-- Hair -->
+<path d="M-21,-37 Q0,-54 21,-37 Q24,-22 20,-14 Q0,-8 -20,-14 Q-24,-22 -21,-37 Z" fill="#8B6A40"/>
+<!-- Side hair -->
+<path d="M-21,-28 Q-26,0 -22,20" fill="none" stroke="#8B6A40" stroke-width="7" stroke-linecap="round"/>
+<path d="M21,-28 Q26,0 22,20" fill="none" stroke="#8B6A40" stroke-width="7" stroke-linecap="round"/>
+<!-- Eyes worried -->
+<ellipse cx="-7" cy="-28" rx="3.5" ry="4.5" fill="white"/>
+<ellipse cx="7" cy="-28" rx="3.5" ry="4.5" fill="white"/>
+<circle cx="-7" cy="-26" r="2.5" fill="#2A3040"/>
+<circle cx="7" cy="-26" r="2.5" fill="#2A3040"/>
+<!-- Slight frown -->
+<path d="M-6,-16 Q0,-13 6,-16" fill="none" stroke="#C0A890" stroke-width="1.5"/>
+</g>
+<!-- Girl 2 - right (melting dress) -->
+<g transform="translate(340,405)">
+<!-- Legs -->
+<rect x="-15" y="88" width="12" height="72" fill="#8AB0C4" rx="2"/>
+<rect x="3" y="88" width="12" height="72" fill="#8AB0C4" rx="2"/>
+<!-- Shoes -->
+<ellipse cx="-9" cy="162" rx="12" ry="6" fill="#2A2020"/>
+<ellipse cx="9" cy="162" rx="12" ry="6" fill="#2A2020"/>
+<!-- Dress body with drips -->
+<path d="M-18,12 Q0,18 18,12 L20,88 L-20,88 Z" fill="#8AB0C4"/>
+<!-- Drip effects -->
+<path d="M-5,87 Q-6,104 -4,116" fill="none" stroke="#8AB0C4" stroke-width="5" stroke-linecap="round"/>
+<path d="M4,86 Q5,100 4,110" fill="none" stroke="#8AB0C4" stroke-width="4" stroke-linecap="round"/>
+<path d="M12,85 Q13,96 11,104" fill="none" stroke="#8AB0C4" stroke-width="3" stroke-linecap="round"/>
+<path d="M-13,85 Q-14,97 -12,105" fill="none" stroke="#8AB0C4" stroke-width="3" stroke-linecap="round"/>
+<!-- White drip/melt highlight -->
+<path d="M-2,40 Q0,70 2,88" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="6" stroke-linecap="round"/>
+<!-- Arms -->
+<path d="M-18,15 L-30,23 L-27,64 L-18,60 Z" fill="#8AB0C4"/>
+<path d="M18,15 L30,23 L27,64 L18,60 Z" fill="#8AB0C4"/>
+<!-- Hands -->
+<ellipse cx="-25" cy="66" rx="8" ry="6" fill="#D8C8A8"/>
+<ellipse cx="25" cy="66" rx="8" ry="6" fill="#D8C8A8"/>
+<!-- Dress top/V-neck -->
+<path d="M-10,12 L0,22 L10,12" fill="none" stroke="#6A90A8" stroke-width="1.5"/>
+<!-- Neck -->
+<rect x="-6" y="2" width="12" height="12" fill="#D8C8A8"/>
+<!-- Head -->
+<ellipse cx="0" cy="-15" rx="19" ry="20" fill="#D8C8A8"/>
+<!-- Hair -->
+<path d="M-19,-26 Q0,-44 19,-26 Q21,-12 17,-5 Q0,0 -17,-5 Q-21,-12 -19,-26 Z" fill="#C4A87A"/>
+<!-- Eyes wide -->
+<ellipse cx="-7" cy="-17" rx="3.5" ry="4.5" fill="white"/>
+<ellipse cx="7" cy="-17" rx="3.5" ry="4.5" fill="white"/>
+<circle cx="-7" cy="-15" r="3" fill="#2A3040"/>
+<circle cx="7" cy="-15" r="3" fill="#2A3040"/>
+</g>
+<!-- Ground shadows under family -->
+<ellipse cx="245" cy="565" rx="130" ry="10" fill="rgba(80,50,20,0.2)"/>
+<!-- Letter blocks bottom left -->
+<rect x="32" y="535" width="36" height="36" fill="#D4704A" rx="2"/>
+<text x="50" y="559" text-anchor="middle" font-family="Georgia,serif" font-size="18" fill="white" font-weight="bold">F</text>
+<rect x="72" y="542" width="34" height="34" fill="#4A7A8A" rx="2"/>
+<text x="89" y="565" text-anchor="middle" font-family="Georgia,serif" font-size="18" fill="white" font-weight="bold">F</text>
+<!-- Floating blocks top left -->
+<g transform="rotate(-18,65,178)">
+<rect x="47" y="165" width="34" height="34" fill="#5A8A5A" rx="2"/>
+<text x="64" y="188" text-anchor="middle" font-family="Georgia,serif" font-size="18" fill="white" font-weight="bold">A</text>
+</g>
+<g transform="rotate(12,98,148)">
+<rect x="82" y="135" width="32" height="32" fill="#8A4A4A" rx="2"/>
+<text x="98" y="157" text-anchor="middle" font-family="Georgia,serif" font-size="16" fill="white" font-weight="bold">L</text>
+</g>
+<!-- Bottom center blocks -->
+<rect x="186" y="548" width="34" height="34" fill="#6A8A5A" rx="2"/>
+<text x="203" y="571" text-anchor="middle" font-family="Georgia,serif" font-size="18" fill="white" font-weight="bold">A</text>
+<rect x="224" y="548" width="34" height="34" fill="#8A4A6A" rx="2"/>
+<text x="241" y="571" text-anchor="middle" font-family="Georgia,serif" font-size="14" fill="white" font-weight="bold">LY</text>
+<!-- Blocks right -->
+<rect x="288" y="520" width="36" height="36" fill="#4A6A8A" rx="2"/>
+<text x="306" y="544" text-anchor="middle" font-family="Georgia,serif" font-size="18" fill="white" font-weight="bold">M</text>
+<rect x="328" y="528" width="34" height="34" fill="#8A7A4A" rx="2"/>
+<text x="345" y="551" text-anchor="middle" font-family="Georgia,serif" font-size="18" fill="white" font-weight="bold">Y</text>
+<!-- Crumbling house bottom left -->
+<g transform="translate(22,568)">
+<rect x="0" y="18" width="58" height="46" fill="#C4A07A" rx="1"/>
+<polygon points="29,0 -4,20 62,20" fill="#A8785A"/>
+<rect x="16" y="28" width="11" height="11" fill="#8B6040"/>
+<rect x="34" y="38" width="9" height="26" fill="#8B6040"/>
+<rect x="52" y="42" width="8" height="6" fill="#C4A07A" transform="rotate(22,56,45)"/>
+<rect x="58" y="50" width="6" height="5" fill="#A89068" transform="rotate(-12,61,52)"/>
+<rect x="-4" y="50" width="7" height="5" fill="#C4A07A" transform="rotate(15,-1,52)"/>
+</g>
+<!-- Crumbling house bottom right -->
+<g transform="translate(336,572)">
+<rect x="0" y="18" width="52" height="42" fill="#C4A07A" rx="1"/>
+<polygon points="26,0 -4,20 56,20" fill="#A8785A"/>
+<rect x="14" y="26" width="10" height="10" fill="#8B6040"/>
+<rect x="30" y="36" width="8" height="24" fill="#8B6040"/>
+<rect x="46" y="40" width="8" height="6" fill="#C4A07A" transform="rotate(18,50,43)"/>
+<rect x="-8" y="48" width="7" height="5" fill="#A89068" transform="rotate(-18,-5,50)"/>
+</g>
+<!-- TITLE -->
+<text x="210" y="68" text-anchor="middle" font-family="Georgia,'Palatino Linotype',serif" font-size="40" fill="#F0E8D0" font-weight="normal" letter-spacing="1">Seeds of Abundance</text>
+<!-- Subtitle line -->
+<text x="210" y="90" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="rgba(240,232,208,0.5)" letter-spacing="3">SIMULADOR DE HOGAR MEXICANO</text>
+</svg>
+<div class="cover-cta">
+  <p>Un viaje de 5 años · Filosofía 50/30/20</p>
+  <button class="btn-cover" onclick="startOnboarding()">Comenzar →</button>
+</div>
+</div>
+
+<!-- ONBOARDING -->
+<div id="onboarding" class="hidden">
+  <div class="ob-head">
+    <div class="ob-brand">Seeds of Abundance</div>
+    <div class="ob-progress">
+      <div class="ob-dot" data-s="1"></div>
+      <div class="ob-dot" data-s="2"></div>
+      <div class="ob-dot" data-s="3"></div>
+      <div class="ob-dot" data-s="4"></div>
+      <div class="ob-dot" data-s="5"></div>
+    </div>
+  </div>
+  <div class="ob-body" id="ob-body"></div>
+  <div class="ob-foot" id="ob-foot"></div>
+</div>
+
+<!-- GAME -->
+<div id="game" class="hidden">
+  <div class="g-header">
+    <div class="g-header-left">
+      <div class="g-avatar" id="g-avatar-mini"></div>
+      <div class="g-brand">Seeds of Abundance</div>
+    </div>
+    <div class="g-month-info">
+      <div class="g-month" id="g-month-label">Mes 1</div>
+      <div class="g-year" id="g-year-label">Año 1 de 5</div>
+    </div>
+  </div>
+  <div class="g-tabs" id="g-tabs">
+    <div class="g-tab act" onclick="switchTab('resumen')">Resumen</div>
+    <div class="g-tab" onclick="switchTab('gastos')">Gastos</div>
+    <div class="g-tab" onclick="switchTab('inversiones')">Inversiones</div>
+    <div class="g-tab" onclick="switchTab('deudas')">Deudas</div>
+    <div class="g-tab" onclick="switchTab('familia')">Familia</div>
+    <div class="g-tab" onclick="switchTab('eventos')">Eventos</div>
+  </div>
+  <div class="g-content" id="g-content"></div>
+  <div class="adv-wrap">
+    <button class="btn-adv" id="btn-adv" onclick="advanceMonth()">
+      ▶ &nbsp;Avanzar al siguiente mes
+    </button>
+  </div>
+</div>
+
+<!-- GAMEOVER -->
+<div id="gameover" class="hidden">
+  <div class="go-ico" id="go-ico"></div>
+  <div class="go-h" id="go-h"></div>
+  <div class="go-d" id="go-d"></div>
+  <div class="go-stats" id="go-stats"></div>
+  <button class="btn-restart" onclick="restart()">Volver a empezar</button>
+</div>
+
+<!-- FAMILY ADD MODAL -->
+<div id="fam-modal" class="modal-bg hidden">
+  <div class="fam-modal">
+    <div style="font-size:36px;text-align:center;margin-bottom:10px">👨‍👩‍👧</div>
+    <div class="fam-modal-h">¿Cambios en la familia?</div>
+    <div class="fam-modal-sh">¿Este mes se integró alguien nuevo al hogar?</div>
+    <div class="fam-opt-grid">
+      <div class="fam-opt" onclick="selectFamAdd('partner')"><div class="fam-opt-ico">💑</div><div class="fam-opt-lbl">Nueva pareja</div></div>
+      <div class="fam-opt" onclick="selectFamAdd('child')"><div class="fam-opt-ico">👶</div><div class="fam-opt-lbl">Nuevo hijo/a</div></div>
+      <div class="fam-opt" onclick="selectFamAdd('relative')"><div class="fam-opt-ico">👴</div><div class="fam-opt-lbl">Familiar dependiente</div></div>
+      <div class="fam-opt" onclick="selectFamAdd('none')"><div class="fam-opt-ico">✓</div><div class="fam-opt-lbl">Sin cambios</div></div>
+    </div>
+    <div class="fam-add-form" id="fam-add-form">
+      <div id="fam-add-fields"></div>
+      <button class="btn-primary" onclick="confirmFamAdd()">Agregar integrante</button>
+    </div>
+    <button class="btn-skip" onclick="closeFamModal()">Continuar sin cambios →</button>
+  </div>
+</div>
+
+<!-- EVENT MODAL (contenido dinámico) -->
+<div id="ev-modal" class="modal-bg hidden"></div>
+
+<script>
+// ===================================================
+// STATE
+// ===================================================
+let S = {};
+
+function initState(){
+  S = {
+    screen:'cover',
+    obStep:1,
+    playerName:'',partnerName:'',familyType:'',
+    childrenNames:[],playerIncome:15000,partnerIncome:0,
+    month:1,savings:0,
+    expenses:{
+      vivienda:5000,alimentacion:3500,transporte:2000,salud:600,
+      educacion:0,servicios:900,ropa:800,entretenimiento:600,
+      restaurantes:900,vacaciones:400,suscripciones:400,
+      ahorro:1500,retiro:500,inversiones:1000
+    },
+    investments:{
+      cetes:{bal:0,dep:0,rate:0.1077/12,name:'CETES 28 días',desc:'Gobierno federal, ~10.77% anual',risk:'bajo'},
+      gbm:{bal:0,dep:0,rate:0.12/12,name:'GBM Smart Cash',desc:'Fondo líquido, ~12% anual',risk:'bajo'},
+      fibras:{bal:0,dep:0,rate:0.11/12,name:'FIBRAs',desc:'Bienes raíces, ~11% anual + dividendos',risk:'medio'},
+      bmv:{bal:0,dep:0,rate:0,vol:0.07,name:'Acciones BMV (IPC)',desc:'Índice principal, promedio ~12% anual',risk:'medio'},
+      crypto:{bal:0,dep:0,rate:0,vol:0.22,name:'Criptomonedas',desc:'Bitcoin/ETH, alta volatilidad',risk:'alto'},
+      negocio:{bal:0,dep:0,rate:0.02,risk_pct:0.08,name:'Negocio propio',desc:'Emprendimiento, hasta 25% anual',risk:'alto'}
+    },
+    loans:[],nextLoanId:1,
+    loanAmt:50000,loanMonths:24,
+    ltp:[],nextLtpId:1,
+    ltpForm:{show:false,name:'',cost:0,months:36,rate:0.12},
+    pendingFamAdd:false,famAddType:null,
+    avatar:{skin:0,style:0,hair:0,outfit:2},
+    felicidad:70,salud:80,relacion:75,estabilidad:60,
+    events:[],
+    activeTab:'resumen',
+    pendingEvent:null,
+    unhappyStreak:0,
+    separated:false,
+    gameOver:false,ending:null
+  };
+}
+initState();
+
+// ===================================================
+// FORMAT HELPERS
+// ===================================================
+const fmt = n => new Intl.NumberFormat('es-MX',{style:'currency',currency:'MXN',maximumFractionDigits:0}).format(n);
+const fmtShort = n => {
+  if(Math.abs(n)>=1000000) return '$'+(n/1000000).toFixed(1)+'M';
+  if(Math.abs(n)>=1000) return '$'+(n/1000).toFixed(1)+'k';
+  return fmt(n);
+};
+const MONTHS_ES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+function monthName(m){return MONTHS_ES[(m-1)%12]+' Año '+(Math.ceil(m/12));}
+
+// ===================================================
+// AVATAR SYSTEM
+// ===================================================
+const AV_SKINS  = ['#FDDCB4','#F0BF7A','#D4956A','#A06040','#7A4028','#C4A87A'];
+const AV_HAIRS  = ['#2C1A0E','#6B4423','#C48A4A','#F0D060','#C43444','#4A4A80'];
+const AV_OUTFITS= ['#6A8AA0','#7B9E7A','#C4714A','#9A7AAA','#B8A870','#4A4A5A'];
+const AV_SKIN_NAMES  =['Clara','Miel','Media','Morena','Oscura','Oliva'];
+const AV_HAIR_NAMES  =['Negro','Castaño','Miel','Rubio','Rojo','Morado'];
+const AV_OUTFIT_NAMES=['Azul','Verde','Terra','Lila','Caqui','Antracita'];
+const AV_STYLE_NAMES =['Corto','Ondulado','Largo','Rizado','Chongo','Bob'];
+
+function adjHex(hex,n){
+  const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+  return '#'+[r,g,b].map(v=>Math.max(0,Math.min(255,v+n)).toString(16).padStart(2,'0')).join('');
+}
+
+function avatarSVG(av, w=90, h=120){
+  const sk=AV_SKINS[av.skin||0];
+  const hc=AV_HAIRS[av.hair||0];
+  const oc=AV_OUTFITS[av.outfit??2];
+  const st=av.style||0;
+
+  // Hair shapes (top, then optional side pieces)
+  const hairTop=[
+    // 0 Corto
+    `<path d="M-19,-46 Q0,-64 19,-46 Q21,-31 17,-20 Q0,-14 -17,-20 Q-21,-31 -19,-46Z" fill="${hc}"/>`,
+    // 1 Ondulado
+    `<path d="M-20,-46 Q0,-66 20,-46 Q24,-28 20,-16 Q0,-10 -20,-16 Q-24,-28 -20,-46Z" fill="${hc}"/>
+     <path d="M-20,-18 Q-27,2 -23,22 Q-19,28 -17,20 Q-15,10 -18,-4Z" fill="${hc}"/>
+     <path d="M20,-18 Q27,2 23,22 Q19,28 17,20 Q15,10 18,-4Z" fill="${hc}"/>`,
+    // 2 Largo liso
+    `<path d="M-20,-46 Q0,-66 20,-46 Q24,-28 20,-16 Q0,-10 -20,-16 Q-24,-28 -20,-46Z" fill="${hc}"/>
+     <rect x="-24" y="-20" width="9" height="85" rx="4" fill="${hc}"/>
+     <rect x="15" y="-20" width="9" height="85" rx="4" fill="${hc}"/>`,
+    // 3 Rizado
+    `<ellipse cx="0" cy="-52" rx="26" ry="16" fill="${hc}"/>
+     <circle cx="-21" cy="-43" r="12" fill="${hc}"/>
+     <circle cx="21" cy="-43" r="12" fill="${hc}"/>
+     <circle cx="-19" cy="-26" r="10" fill="${hc}"/>
+     <circle cx="19" cy="-26" r="10" fill="${hc}"/>`,
+    // 4 Chongo
+    `<path d="M-18,-44 Q0,-60 18,-44 Q20,-32 16,-20 Q0,-14 -16,-20 Q-20,-32 -18,-44Z" fill="${hc}"/>
+     <circle cx="0" cy="-64" r="13" fill="${hc}"/>
+     <ellipse cx="0" cy="-64" rx="8" ry="6" fill="${adjHex(hc,-15)}" opacity=".5"/>`,
+    // 5 Bob
+    `<path d="M-23,-46 Q0,-68 23,-46 Q29,-22 23,-4 Q10,4 -10,4 Q-23,-4 -29,-22 Q-29,-34 -23,-46Z" fill="${hc}"/>`,
+  ];
+
+  return `<svg width="${w}" height="${h}" viewBox="-38 -80 76 124" xmlns="http://www.w3.org/2000/svg">
+    <!-- Outfit body -->
+    <path d="M-24,8 L-30,22 L-30,44 L30,44 L30,22 L24,8Z" fill="${oc}"/>
+    <path d="M-10,6 L0,15 L10,6" fill="none" stroke="${adjHex(oc,-18)}" stroke-width="1.5"/>
+    <!-- Arms -->
+    <path d="M-30,22 L-40,34 L-36,44 L-30,38Z" fill="${oc}"/>
+    <path d="M30,22 L40,34 L36,44 L30,38Z" fill="${oc}"/>
+    <!-- Neck -->
+    <rect x="-7" y="-5" width="14" height="16" rx="3" fill="${sk}"/>
+    <!-- Head -->
+    <ellipse cx="0" cy="-28" rx="22" ry="25" fill="${sk}"/>
+    <!-- Hair -->
+    ${hairTop[st]}
+    <!-- Brows -->
+    <path d="M-12,-38 Q-8,-41 -4,-38" fill="none" stroke="${adjHex(hc,10)}" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M4,-38 Q8,-41 12,-38" fill="none" stroke="${adjHex(hc,10)}" stroke-width="1.5" stroke-linecap="round"/>
+    <!-- Eyes -->
+    <ellipse cx="-8" cy="-31" rx="3.5" ry="4" fill="white"/>
+    <ellipse cx="8" cy="-31" rx="3.5" ry="4" fill="white"/>
+    <circle cx="-8" cy="-29" r="2.6" fill="#1A1714"/>
+    <circle cx="8" cy="-29" r="2.6" fill="#1A1714"/>
+    <circle cx="-7" cy="-30" r="1" fill="white"/>
+    <circle cx="9" cy="-30" r="1" fill="white"/>
+    <!-- Nose -->
+    <ellipse cx="0" cy="-19" rx="2" ry="1.5" fill="${adjHex(sk,-18)}"/>
+    <!-- Mouth -->
+    <path d="M-6,-13 Q0,-9 6,-13" fill="none" stroke="${adjHex(sk,-22)}" stroke-width="1.8" stroke-linecap="round"/>
+    <!-- Cheeks -->
+    <ellipse cx="-14" cy="-19" rx="5" ry="3" fill="${adjHex(sk,20)}" opacity=".35"/>
+    <ellipse cx="14" cy="-19" rx="5" ry="3" fill="${adjHex(sk,20)}" opacity=".35"/>
+  </svg>`;
+}
+
+function renderAvatarMini(){
+  const el=document.getElementById('g-avatar-mini');
+  if(el) el.innerHTML=avatarSVG(S.avatar,32,32);
+}
+
+
+const totalIncome = () => S.playerIncome + S.partnerIncome;
+const totalExp = () => Object.values(S.expenses).reduce((a,b)=>a+b,0);
+const totalLoanPay = () => S.loans.reduce((s,l)=>s+l.monthly,0);
+const totalLTPPay = () => (S.ltp||[]).reduce((s,p)=>s+p.monthly,0);
+const totalInvValue = () => Object.values(S.investments).reduce((s,i)=>s+i.bal,0);
+const totalDebt = () => S.loans.reduce((s,l)=>s+l.remaining,0);
+const netWorth = () => S.savings + totalInvValue() - totalDebt();
+
+const needsExp = () => ['vivienda','alimentacion','transporte','salud','educacion','servicios'].reduce((s,k)=>s+S.expenses[k],0);
+const wantsExp = () => ['ropa','entretenimiento','restaurantes','vacaciones','suscripciones'].reduce((s,k)=>s+S.expenses[k],0);
+const savingsExp = () => ['ahorro','retiro','inversiones'].reduce((s,k)=>s+S.expenses[k],0);
+
+function monthlyFlow(){return totalIncome()-totalExp()-totalLoanPay()-totalLTPPay();}
+
+// ===================================================
+// ONBOARDING
+// ===================================================
+function startOnboarding(){
+  document.getElementById('cover').classList.add('hidden');
+  document.getElementById('onboarding').classList.remove('hidden');
+  S.obStep=1; renderOB();
+}
+
+const familyTypes=[
+  {id:'single',ico:'🧑',name:'Soltero/a',desc:'Sin pareja ni hijos'},
+  {id:'couple',ico:'👫',name:'Pareja',desc:'Sin hijos'},
+  {id:'family1',ico:'👨‍👩‍👦',name:'1 hijo',desc:'Familia con un hijo'},
+  {id:'family2',ico:'👨‍👩‍👧‍👦',name:'2 hijos',desc:'Familia con dos hijos'},
+  {id:'family3',ico:'👨‍👩‍👧‍👧',name:'3+ hijos',desc:'Familia numerosa'},
+  {id:'singleParent',ico:'👩‍👦',name:'Padre/Madre soltero/a',desc:'Con hijos, sin pareja'}
+];
+
+function renderOB(){
+  const s=S.obStep;
+  document.querySelectorAll('.ob-dot').forEach(d=>{
+    const ds=parseInt(d.dataset.s);
+    d.className='ob-dot'+(ds<s?' done':ds===s?' active':'');
+  });
+  const body=document.getElementById('ob-body');
+  const foot=document.getElementById('ob-foot');
+
+  if(s===1){
+    body.innerHTML=`
+    <div class="ob-h">Cuéntanos sobre ti</div>
+    <div class="ob-sh">Configuremos tu perfil financiero inicial</div>
+    <div class="ob-field">
+      <label class="ob-label">Tu nombre</label>
+      <input class="ob-input" id="inp-name" type="text" placeholder="Ej. Valeria" value="${S.playerName}" oninput="S.playerName=this.value;updateOBBtn()">
+    </div>
+    <div class="ob-field">
+      <label class="ob-label">Ingreso mensual neto (MXN)</label>
+      <input class="ob-input" id="inp-income" type="number" inputmode="numeric" placeholder="Ej. 18000" value="${S.playerIncome||''}" oninput="S.playerIncome=parseFloat(this.value)||0;updateOBBtn();updateRulePreview()">
+    </div>
+    <div id="rule-preview" style="margin-top:4px"></div>`;
+    foot.innerHTML=`<button class="btn-primary" id="btn-ob" onclick="nextOB()" ${(!S.playerName||!S.playerIncome)?'disabled':''}>Continuar →</button>`;
+    if(S.playerIncome) updateRulePreview();
+  }
+
+  else if(s===2){
+    // ── AVATAR CUSTOMIZER ──
+    const av=S.avatar;
+    body.innerHTML=`
+    <div class="ob-h">Crea tu personaje</div>
+    <div class="ob-sh">Diseña cómo te verás durante la simulación</div>
+
+    <div class="av-preview">
+      <div class="av-preview-ring" id="av-big">${avatarSVG(av,90,120)}</div>
+    </div>
+
+    <div class="av-section">
+      <div class="av-section-lbl">Tono de piel</div>
+      <div class="av-options">
+        ${AV_SKINS.map((c,i)=>`<div class="av-swatch${av.skin===i?' sel':''}" style="background:${c}" onclick="setAv('skin',${i})"></div>`).join('')}
+      </div>
+    </div>
+
+    <div class="av-section">
+      <div class="av-section-lbl">Peinado</div>
+      <div class="av-options">
+        ${AV_STYLE_NAMES.map((n,i)=>`
+          <div class="av-style-opt${av.style===i?' sel':''}" title="${n}" onclick="setAv('style',${i})">
+            ${avatarSVG({...av,style:i},46,56)}
+          </div>`).join('')}
+      </div>
+    </div>
+
+    <div class="av-section">
+      <div class="av-section-lbl">Color de cabello</div>
+      <div class="av-options">
+        ${AV_HAIRS.map((c,i)=>`<div class="av-swatch${av.hair===i?' sel':''}" style="background:${c};border-color:${i===3?'#C0A820':'transparent'}" onclick="setAv('hair',${i})"></div>`).join('')}
+      </div>
+    </div>
+
+    <div class="av-section">
+      <div class="av-section-lbl">Color de ropa</div>
+      <div class="av-options">
+        ${AV_OUTFITS.map((c,i)=>`<div class="av-swatch${av.outfit===i?' sel':''}" style="background:${c}" onclick="setAv('outfit',${i})"></div>`).join('')}
+      </div>
+    </div>`;
+    foot.innerHTML=`<button class="btn-primary" onclick="nextOB()">Continuar →</button>
+    <button class="btn-back" onclick="S.obStep=1;renderOB()">← Atrás</button>`;
+  }
+
+  else if(s===3){
+    body.innerHTML=`
+    <div class="ob-h">¿Cuál es tu situación familiar?</div>
+    <div class="ob-sh">Esto ajustará gastos y eventos del juego</div>
+    <div class="family-grid">
+    ${familyTypes.map(f=>`
+      <div class="f-card${S.familyType===f.id?' sel':''}" onclick="selFamily('${f.id}')">
+        <div class="f-icon">${f.ico}</div>
+        <div class="f-name">${f.name}</div>
+        <div class="f-desc">${f.desc}</div>
+      </div>`).join('')}
+    </div>`;
+    foot.innerHTML=`<button class="btn-primary" id="btn-ob" onclick="nextOB()" ${!S.familyType?'disabled':''}>Continuar →</button>
+    <button class="btn-back" onclick="S.obStep=2;renderOB()">← Atrás</button>`;
+  }
+
+  else if(s===4){
+    const hasPartner = ['couple','family1','family2','family3'].includes(S.familyType);
+    const hasChildren = ['family1','family2','family3','singleParent'].includes(S.familyType);
+    const childCount = S.familyType==='family1'?1:S.familyType==='family2'?2:S.familyType==='family3'?3:S.familyType==='singleParent'?1:0;
+    if(S.childrenNames.length<childCount){
+      S.childrenNames=Array.from({length:childCount},(_,i)=>S.childrenNames[i]||'');
+    }
+    body.innerHTML=`
+    <div class="ob-h">Miembros de tu hogar</div>
+    <div class="ob-sh">Personaliza con los nombres de tu familia</div>
+    ${hasPartner?`
+    <div class="ob-field">
+      <label class="ob-label">Nombre de tu pareja</label>
+      <input class="ob-input" type="text" placeholder="Ej. Rodrigo" value="${S.partnerName}" oninput="S.partnerName=this.value">
+    </div>
+    <div class="ob-field">
+      <label class="ob-label">Ingreso mensual de tu pareja (MXN)</label>
+      <input class="ob-input" type="number" inputmode="numeric" placeholder="0 si no trabaja" value="${S.partnerIncome||''}" oninput="S.partnerIncome=parseFloat(this.value)||0">
+    </div>`:''}
+    ${hasChildren?`
+    <div class="ob-field">
+      <label class="ob-label">Nombres de tus hijos</label>
+      <div class="children-list" id="children-list">
+      ${S.childrenNames.map((n,i)=>`
+        <div class="child-row">
+          <input type="text" placeholder="Nombre del hijo ${i+1}" value="${n}" oninput="S.childrenNames[${i}]=this.value">
+        </div>`).join('')}
+      </div>
+    </div>`:''}
+    ${!hasPartner&&!hasChildren?`<div style="color:var(--stone);font-size:14px;padding:20px 0">Perfil individual configurado. Puedes añadir ingresos en el juego.</div>`:''}`;
+    foot.innerHTML=`<button class="btn-primary" onclick="nextOB()">Continuar →</button>
+    <button class="btn-back" onclick="S.obStep=3;renderOB()">← Atrás</button>`;
+  }
+
+  else if(s===5){
+    const inc=totalIncome();
+    const needs=inc*0.5, wants=inc*0.30, sav=inc*0.20;
+    setDefaultExpenses();
+    body.innerHTML=`
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px">
+      <div style="width:70px;height:92px;border-radius:50% 50% 40% 40%;background:var(--cream-d);display:flex;align-items:center;justify-content:center;border:2px solid var(--sand);flex-shrink:0">${avatarSVG(S.avatar,64,84)}</div>
+      <div>
+        <div class="ob-h" style="font-size:28px">${S.playerName}</div>
+        <div style="font-size:13px;color:var(--stone)">${fmt(totalIncome())}/mes · ${familyTypes.find(f=>f.id===S.familyType)?.name||''}</div>
+      </div>
+    </div>
+    <div class="ob-h" style="font-size:26px;margin-bottom:4px">Tu plan 50/30/20</div>
+    <div class="ob-sh">Distribución de ${fmt(inc)}/mes de ingreso total</div>
+    <div class="rule-card">
+      <div class="rule-row">
+        <div>
+          <div class="rule-lbl">🏠 Necesidades — 50%</div>
+          <div style="font-size:10px;color:var(--stone);margin-top:2px">Vivienda, comida, transporte, salud, educación</div>
+        </div>
+        <div class="rule-r"><div class="rule-amt neu">${fmt(needs)}</div><div class="rule-pct">máximo</div></div>
+      </div>
+      <div class="rule-row">
+        <div>
+          <div class="rule-lbl">🎭 Deseos — 30%</div>
+          <div style="font-size:10px;color:var(--stone);margin-top:2px">Ropa, entretenimiento, restaurantes, ocio</div>
+        </div>
+        <div class="rule-r"><div class="rule-amt neu">${fmt(wants)}</div><div class="rule-pct">máximo</div></div>
+      </div>
+      <div class="rule-row">
+        <div>
+          <div class="rule-lbl">💰 Ahorro/Inversión — 20%</div>
+          <div style="font-size:10px;color:var(--stone);margin-top:2px">Ahorro, retiro, inversiones activas</div>
+        </div>
+        <div class="rule-r"><div class="rule-amt" style="color:var(--sage)">${fmt(sav)}</div><div class="rule-pct">mínimo ideal</div></div>
+      </div>
+    </div>
+    <div class="card" style="font-size:13px;color:var(--stone);line-height:1.6">
+      <strong style="color:var(--charcoal)">¿Cómo funciona el juego?</strong><br><br>
+      Administra tu hogar mes a mes durante <strong>5 años (60 meses)</strong>. Tus decisiones afectan la felicidad, salud y estabilidad de tu familia. Eventos inesperados cambiarán el rumbo cada mes. Busca uno de los 4 finales: <em>Éxito, Quiebra, Infelicidad o Divorcio</em>.
+    </div>`;
+    foot.innerHTML=`<button class="btn-primary" onclick="startGame()">¡Comenzar mi simulación!</button>
+    <button class="btn-back" onclick="S.obStep=4;renderOB()">← Atrás</button>`;
+  }
+}
+
+function setAv(prop, val){
+  S.avatar[prop]=val;
+  // Update big preview
+  const big=document.getElementById('av-big');
+  if(big) big.innerHTML=avatarSVG(S.avatar,90,120);
+  // Re-render style row only (cheaper than full renderOB)
+  document.querySelectorAll('.av-swatch, .av-style-opt').forEach(el=>{
+    el.classList.remove('sel');
+  });
+  // Full re-render for style thumbnails (they need to update hair color)
+  renderOB();
+}
+
+
+
+function updateRulePreview(){
+  const inc=S.playerIncome;
+  if(!inc) return;
+  document.getElementById('rule-preview').innerHTML=`
+  <div class="rule-card" style="padding:14px 16px">
+    <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px">
+      <span style="color:var(--stone)">Necesidades (50%)</span><span style="font-weight:500">${fmt(inc*.5)}</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px">
+      <span style="color:var(--stone)">Deseos (30%)</span><span style="font-weight:500">${fmt(inc*.3)}</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:12px">
+      <span style="color:var(--stone)">Ahorro/Inv. (20%)</span><span style="font-weight:500;color:var(--sage)">${fmt(inc*.2)}</span>
+    </div>
+  </div>`;
+}
+
+function updateOBBtn(){
+  const btn=document.getElementById('btn-ob');
+  if(btn) btn.disabled=(!S.playerName||!S.playerIncome);
+}
+
+function selFamily(id){
+  S.familyType=id;
+  // Set default education
+  if(id==='family1') S.expenses.educacion=1500;
+  else if(id==='family2') S.expenses.educacion=3000;
+  else if(id==='family3') S.expenses.educacion=4500;
+  else if(id==='singleParent') S.expenses.educacion=1500;
+  else S.expenses.educacion=0;
+  renderOB();
+}
+
+function nextOB(){
+  S.obStep++;
+  if(S.obStep>4) startGame();
+  else renderOB();
+}
+
+function setDefaultExpenses(){
+  const inc=totalIncome();
+  const hasChildren=['family1','family2','family3','singleParent'].includes(S.familyType);
+  const isLow=inc<15000;
+  S.expenses.vivienda=Math.round(inc*0.22);
+  S.expenses.alimentacion=Math.round(inc*(hasChildren?0.12:0.10));
+  S.expenses.transporte=Math.round(inc*0.08);
+  S.expenses.salud=Math.round(inc*0.03);
+  S.expenses.servicios=Math.round(inc*0.04);
+  S.expenses.ropa=Math.round(inc*0.05);
+  S.expenses.entretenimiento=Math.round(inc*0.04);
+  S.expenses.restaurantes=Math.round(inc*0.05);
+  S.expenses.vacaciones=Math.round(inc*(isLow?0.01:0.03));
+  S.expenses.suscripciones=Math.round(inc*0.015);
+  S.expenses.ahorro=Math.round(inc*0.08);
+  S.expenses.retiro=Math.round(inc*0.04);
+  S.expenses.inversiones=Math.round(inc*0.04);
+}
+
+// ===================================================
+// GAME START
+// ===================================================
+function startGame(){
+  document.getElementById('onboarding').classList.add('hidden');
+  document.getElementById('game').classList.remove('hidden');
+  S.screen='game';
+  S.events.push({type:'start',month:1,icon:'🌱',title:'Simulación iniciada',desc:`Bienvenido/a ${S.playerName}. Tu viaje de 5 años comienza ahora.`,pos:true});
+  renderGame();
+}
+
+// ===================================================
+// GAME RENDER
+// ===================================================
+const tabNames=['resumen','gastos','inversiones','deudas','familia','eventos'];
+
+function switchTab(t){
+  S.activeTab=t;
+  document.querySelectorAll('.g-tab').forEach((el,i)=>{
+    el.className='g-tab'+(tabNames[i]===t?' act':'');
+  });
+  renderGame();
+}
+
+function renderGame(){
+  document.getElementById('g-month-label').textContent=`Mes ${S.month}`;
+  document.getElementById('g-year-label').textContent=`${MONTHS_ES[(S.month-1)%12]} · Año ${Math.ceil(S.month/12)} de 5`;
+  const c=document.getElementById('g-content');
+  if(S.activeTab==='resumen') c.innerHTML=tabResumen();
+  else if(S.activeTab==='gastos') c.innerHTML=tabGastos();
+  else if(S.activeTab==='inversiones') c.innerHTML=tabInversiones();
+  else if(S.activeTab==='deudas') c.innerHTML=tabDeudas();
+  else if(S.activeTab==='familia') c.innerHTML=tabFamilia();
+  else if(S.activeTab==='eventos') c.innerHTML=tabEventos();
+}
+
+// RESUMEN TAB
+function tabResumen(){
+  const inc=totalIncome(), exp=totalExp()+totalLoanPay(), flow=monthlyFlow();
+  const nw=netWorth();
+  const needsPct=Math.min(200,Math.round(needsExp()/inc*100));
+  const wantsPct=Math.min(200,Math.round(wantsExp()/inc*100));
+  const savPct=Math.min(200,Math.round(savingsExp()/inc*100));
+  const mColor=(v,good)=>{
+    if(v>=80) return '#5A8A6A';
+    if(v>=50) return '#B8954A';
+    return '#A85454';
+  };
+  return `
+  <div class="sec-h">Hola, ${S.playerName}</div>
+  <div class="sec-sh">Resumen del mes ${S.month} de 60</div>
+
+  <div class="balance-card">
+    <div class="big-label">Flujo mensual</div>
+    <div class="big-num" style="color:${flow>=0?'var(--sage)':'var(--danger)'}">${fmt(flow)}</div>
+    <div style="font-size:11px;color:var(--stone);margin-top:6px">${flow>=0?'Superávit — vas bien ✓':'Déficit — revisa tus gastos ⚠'}</div>
+  </div>
+
+  <div class="m-grid">
+    <div class="m-card">
+      <div class="m-name">Felicidad</div>
+      <div class="m-val" style="color:${mColor(S.felicidad)}">${Math.round(S.felicidad)}</div>
+      <div class="m-bar"><div class="m-fill" style="width:${S.felicidad}%;background:${mColor(S.felicidad)}"></div></div>
+      <div class="m-label">${S.felicidad>=70?'Familia contenta':S.felicidad>=40?'Con estrés':'Familia infeliz'}</div>
+    </div>
+    <div class="m-card">
+      <div class="m-name">Salud</div>
+      <div class="m-val" style="color:${mColor(S.salud)}">${Math.round(S.salud)}</div>
+      <div class="m-bar"><div class="m-fill" style="width:${S.salud}%;background:${mColor(S.salud)}"></div></div>
+      <div class="m-label">${S.salud>=70?'Buen estado':'Atención requerida'}</div>
+    </div>
+    <div class="m-card">
+      <div class="m-name">Relación</div>
+      <div class="m-val" style="color:${mColor(S.relacion)}">${Math.round(S.relacion)}</div>
+      <div class="m-bar"><div class="m-fill" style="width:${S.relacion}%;background:${mColor(S.relacion)}"></div></div>
+      <div class="m-label">${S.relacion>=70?'Sólida':'En riesgo'}</div>
+    </div>
+    <div class="m-card">
+      <div class="m-name">Estabilidad</div>
+      <div class="m-val" style="color:${mColor(S.estabilidad)}">${Math.round(S.estabilidad)}</div>
+      <div class="m-bar"><div class="m-fill" style="width:${S.estabilidad}%;background:${mColor(S.estabilidad)}"></div></div>
+      <div class="m-label">${S.estabilidad>=70?'Financieramente sólida':'Frágil'}</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="f-row"><span class="f-lbl">Ingresos totales</span><span class="f-val pos">${fmt(inc)}</span></div>
+    <div class="f-row"><span class="f-lbl">Gastos fijos</span><span class="f-val neg">-${fmt(totalExp())}</span></div>
+    ${totalLoanPay()>0?`<div class="f-row"><span class="f-lbl">Pagos de deuda</span><span class="f-val neg">-${fmt(totalLoanPay())}</span></div>`:''}
+    ${totalLTPPay()>0?`<div class="f-row"><span class="f-lbl">Compras a plazo</span><span class="f-val neg">-${fmt(totalLTPPay())}</span></div>`:''}
+    <div class="f-row"><span class="f-lbl" style="font-weight:500">Flujo neto</span><span class="f-val ${flow>=0?'pos':'neg'}">${fmt(flow)}</span></div>
+    <div class="f-row"><span class="f-lbl">Ahorro acumulado</span><span class="f-val neu">${fmt(S.savings)}</span></div>
+    <div class="f-row"><span class="f-lbl">Portafolio inversiones</span><span class="f-val neu">${fmt(totalInvValue())}</span></div>
+    ${totalDebt()>0?`<div class="f-row"><span class="f-lbl">Deudas totales</span><span class="f-val neg">-${fmt(totalDebt())}</span></div>`:''}
+    <div class="f-row"><span class="f-lbl" style="font-weight:500;color:var(--bark)">Patrimonio neto</span><span class="f-val ${nw>=0?'pos':'neg'}">${fmt(nw)}</span></div>
+  </div>
+
+  <div class="card">
+    <div style="font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--stone);margin-bottom:14px">Regla 50/30/20</div>
+    <div class="gauge-row">
+      <div class="gauge-h">
+        <span class="gauge-lbl">🏠 Necesidades (meta ≤50%)</span>
+        <span class="gauge-pct" style="color:${needsPct<=50?'var(--sage)':'var(--danger)'}">${needsPct}%</span>
+      </div>
+      <div class="gauge-bar"><div class="gauge-fill" style="width:${Math.min(100,needsPct)}%;background:${needsPct<=50?'var(--sage)':'var(--danger)'}"></div></div>
+    </div>
+    <div class="gauge-row">
+      <div class="gauge-h">
+        <span class="gauge-lbl">🎭 Deseos (meta ≤30%)</span>
+        <span class="gauge-pct" style="color:${wantsPct<=30?'var(--sage)':'var(--danger)'}">${wantsPct}%</span>
+      </div>
+      <div class="gauge-bar"><div class="gauge-fill" style="width:${Math.min(100,wantsPct)}%;background:${wantsPct<=30?'var(--sage)':'var(--danger)'}"></div></div>
+    </div>
+    <div class="gauge-row">
+      <div class="gauge-h">
+        <span class="gauge-lbl">💰 Ahorro/Inv. (meta ≥20%)</span>
+        <span class="gauge-pct" style="color:${savPct>=20?'var(--sage)':'var(--terra)'}">${savPct}%</span>
+      </div>
+      <div class="gauge-bar"><div class="gauge-fill" style="width:${Math.min(100,savPct)}%;background:${savPct>=20?'var(--sage)':'var(--terra)'}"></div></div>
+    </div>
+  </div>
+  <div style="height:8px"></div>`;
+}
+
+// GASTOS TAB
+const expConfig=[
+  {k:'vivienda',n:'Vivienda',cat:'n',tag:'Necesidad',min:2000,max:40000,step:500},
+  {k:'alimentacion',n:'Alimentación',cat:'n',tag:'Necesidad',min:1000,max:20000,step:200},
+  {k:'transporte',n:'Transporte',cat:'n',tag:'Necesidad',min:500,max:12000,step:200},
+  {k:'salud',n:'Salud y medicamentos',cat:'n',tag:'Necesidad',min:0,max:10000,step:100},
+  {k:'educacion',n:'Educación',cat:'n',tag:'Necesidad',min:0,max:15000,step:200},
+  {k:'servicios',n:'Servicios (luz/agua/internet)',cat:'n',tag:'Necesidad',min:300,max:5000,step:100},
+  {k:'ropa',n:'Ropa y calzado',cat:'w',tag:'Deseo',min:0,max:8000,step:100},
+  {k:'entretenimiento',n:'Entretenimiento y ocio',cat:'w',tag:'Deseo',min:0,max:8000,step:100},
+  {k:'restaurantes',n:'Restaurantes y salidas',cat:'w',tag:'Deseo',min:0,max:10000,step:100},
+  {k:'vacaciones',n:'Vacaciones',cat:'w',tag:'Deseo',min:0,max:10000,step:200},
+  {k:'suscripciones',n:'Suscripciones (Netflix, etc.)',cat:'w',tag:'Deseo',min:0,max:3000,step:50},
+  {k:'ahorro',n:'Fondo de emergencia',cat:'s',tag:'Ahorro',min:0,max:15000,step:200},
+  {k:'retiro',n:'Retiro / AFORE voluntario',cat:'s',tag:'Ahorro',min:0,max:10000,step:200},
+  {k:'inversiones',n:'Inversiones activas',cat:'s',tag:'Ahorro',min:0,max:20000,step:200}
+];
+
+function tabGastos(){
+  const inc=totalIncome();
+  const needsPct=Math.round(needsExp()/inc*100);
+  const wantsPct=Math.round(wantsExp()/inc*100);
+  const savPct=Math.round(savingsExp()/inc*100);
+  const usedPct=Math.round((totalExp()+totalLTPPay())/inc*100);
+  const ltpSection=buildLTPSection();
+  return `
+  <div class="sec-h">Gastos</div>
+  <div class="sec-sh">Ajusta con los sliders · Ingreso: ${fmt(inc)}/mes</div>
+  <div class="card" style="margin-bottom:16px">
+    <div style="display:flex;justify-content:space-between;margin-bottom:10px">
+      <span style="font-size:12px;color:var(--stone)">Total asignado</span>
+      <span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:${usedPct>100?'var(--danger)':'var(--charcoal)'}">${usedPct}% · ${fmt(totalExp()+totalLTPPay())}</span>
+    </div>
+    <div style="height:4px;background:var(--cream-d);border-radius:4px;overflow:hidden">
+      <div style="height:100%;width:${Math.min(100,usedPct)}%;background:${usedPct>100?'var(--danger)':usedPct>90?'var(--terra)':'var(--bark)'};border-radius:4px;transition:width .3s"></div>
+    </div>
+    <div style="display:flex;gap:12px;margin-top:10px;font-size:10px">
+      <span style="color:${needsPct<=50?'var(--sage)':'var(--danger)'}">🏠 Nec: ${needsPct}%</span>
+      <span style="color:${wantsPct<=30?'var(--sage)':'var(--danger)'}">🎭 Des: ${wantsPct}%</span>
+      <span style="color:${savPct>=20?'var(--sage)':'var(--terra)'}">💰 Aho: ${savPct}%</span>
+    </div>
+  </div>
+  ${expConfig.map(e=>`
+  <div class="exp-item">
+    <div class="exp-h">
+      <span class="exp-name">${e.n}</span>
+      <span class="exp-tag tag-${e.cat}">${e.tag}</span>
+    </div>
+    <div class="exp-amt">${fmt(S.expenses[e.k])}</div>
+    <input type="range" min="${e.min}" max="${e.max}" step="${e.step}" value="${S.expenses[e.k]}"
+      oninput="S.expenses['${e.k}']=parseInt(this.value);this.previousElementSibling.textContent=new Intl.NumberFormat('es-MX',{style:'currency',currency:'MXN',maximumFractionDigits:0}).format(this.value);updateGauges()">
+  </div>`).join('')}
+  ${ltpSection}
+  <div style="height:8px"></div>`;
+}
+
+function updateGauges(){
+  // Light re-render of just the summary card without full tab refresh
+  if(S.activeTab==='gastos'){
+    const inc=totalIncome();
+    const needsPct=Math.round(needsExp()/inc*100);
+    const wantsPct=Math.round(wantsExp()/inc*100);
+    const savPct=Math.round(savingsExp()/inc*100);
+    const usedPct=Math.round(totalExp()/inc*100);
+    // update top summary only
+  }
+}
+
+// INVERSIONES TAB
+const invConfig=[
+  {k:'cetes',color:'var(--sage)'},
+  {k:'gbm',color:'var(--slate)'},
+  {k:'fibras',color:'var(--bark)'},
+  {k:'bmv',color:'var(--gold)'},
+  {k:'crypto',color:'var(--terra)'},
+  {k:'negocio',color:'var(--charcoal)'}
+];
+
+function tabInversiones(){
+  const totalVal=totalInvValue();
+  return `
+  <div class="sec-h">Inversiones</div>
+  <div class="sec-sh">Portafolio total: ${fmt(totalVal)}</div>
+  <div class="card" style="margin-bottom:16px;text-align:center">
+    <div class="big-label">Valor total del portafolio</div>
+    <div class="big-num" style="color:var(--sage)">${fmt(totalVal)}</div>
+    <div style="font-size:11px;color:var(--stone);margin-top:6px">Ganancia total: ${fmt(totalVal - Object.values(S.investments).reduce((s,i)=>s+i.dep,0))}</div>
+  </div>
+  ${invConfig.map(({k,color})=>{
+    const inv=S.investments[k];
+    const gain=inv.bal-inv.dep;
+    const riskBadge=inv.risk==='bajo'?'<span style="font-size:10px;background:#E5EFE5;color:#4A7A4A;padding:2px 8px;border-radius:20px">Bajo riesgo</span>':
+      inv.risk==='medio'?'<span style="font-size:10px;background:#F0EAE0;color:#8B6A30;padding:2px 8px;border-radius:20px">Riesgo medio</span>':
+      '<span style="font-size:10px;background:#F0E5E5;color:#8A4040;padding:2px 8px;border-radius:20px">Alto riesgo</span>';
+    const monthlyRate=(inv.rate||0)*100;
+    return `
+    <div class="inv-card">
+      <div class="inv-h">
+        <div>
+          <div class="inv-name">${inv.name}</div>
+          <div style="font-size:11px;color:var(--stone);margin-top:2px">${inv.desc}</div>
+          <div style="margin-top:5px">${riskBadge}</div>
+        </div>
+        <div style="text-align:right">
+          ${inv.rate?`<div class="inv-rate">~${(inv.rate*12*100).toFixed(1)}% anual</div>`:'<div class="inv-rate">Variable</div>'}
+        </div>
+      </div>
+      <div class="inv-total" style="color:${color}">${fmt(inv.bal)}</div>
+      <div class="inv-gain">${gain>=0?'↑':'↓'} ${fmt(Math.abs(gain))} vs depositado (${fmt(inv.dep)})</div>
+      <div class="inv-row">
+        <input type="number" inputmode="numeric" id="inv-inp-${k}" placeholder="Depositar MXN" min="0" step="100">
+        <button class="btn-inv" onclick="depositInv('${k}')">+ Depositar</button>
+        ${inv.bal>0?`<button class="btn-inv" style="background:var(--bark)" onclick="withdrawInv('${k}')">Retirar</button>`:''}
+      </div>
+    </div>`;
+  }).join('')}
+  <div style="height:8px"></div>`;
+}
+
+function depositInv(k){
+  const inp=document.getElementById('inv-inp-'+k);
+  const amt=parseFloat(inp.value)||0;
+  if(amt<=0){alert('Ingresa un monto válido.');return;}
+  if(amt>S.savings+S.expenses.inversiones){alert('No tienes suficiente en ahorros.');return;}
+  S.investments[k].bal+=amt;
+  S.investments[k].dep+=amt;
+  S.savings-=amt;
+  S.events.unshift({type:'inv',month:S.month,icon:'📈',title:`Inversión en ${S.investments[k].name}`,desc:`Depositaste ${fmt(amt)}`,pos:true});
+  renderGame();
+}
+
+function withdrawInv(k){
+  const inv=S.investments[k];
+  if(inv.bal<=0) return;
+  if(!confirm(`¿Retirar todo? ${fmt(inv.bal)} a tu cuenta.`)) return;
+  S.savings+=inv.bal;
+  S.events.unshift({type:'inv',month:S.month,icon:'💵',title:`Retiro de ${inv.name}`,desc:`Retiraste ${fmt(inv.bal)}`,pos:true});
+  inv.bal=0; inv.dep=0;
+  renderGame();
+}
+
+// DEUDAS TAB
+function tabDeudas(){
+  const maxLoan=totalIncome()*6;
+  const monthlyRate=0.30/12;
+  const lmt=S.loanMonths||24;
+  const lma=S.loanAmt||50000;
+  const factor=(monthlyRate*Math.pow(1+monthlyRate,lmt))/(Math.pow(1+monthlyRate,lmt)-1);
+  const monthly=Math.round(lma*factor);
+  return `
+  <div class="sec-h">Deudas</div>
+  <div class="sec-sh">Deuda total: ${fmt(totalDebt())} · Tasa anual: 30%</div>
+
+  ${S.loans.length===0?`<div class="card" style="text-align:center;padding:28px">
+    <div style="font-size:32px;margin-bottom:10px">✅</div>
+    <div style="font-size:14px;color:var(--stone)">Sin deudas activas — ¡excelente!</div>
+  </div>`:''}
+
+  ${S.loans.map(l=>`
+  <div class="loan-card">
+    <div class="loan-h">
+      <div class="loan-name">${l.name}</div>
+      <span class="loan-status">Activo</span>
+    </div>
+    <div class="loan-remaining">${fmt(l.remaining)}</div>
+    <div class="loan-info">Pago mensual: ${fmt(l.monthly)} · Meses restantes: ${l.monthsLeft} · ${fmt(l.original)} originales</div>
+    <div style="height:4px;background:var(--cream-d);border-radius:4px;overflow:hidden;margin-top:10px">
+      <div style="height:100%;width:${100-Math.round(l.remaining/l.original*100)}%;background:var(--sage);border-radius:4px"></div>
+    </div>
+    <div style="font-size:10px;color:var(--stone);margin-top:4px">${100-Math.round(l.remaining/l.original*100)}% pagado</div>
+  </div>`).join('')}
+
+  <div class="card">
+    <div style="font-size:13px;font-weight:500;margin-bottom:14px">Solicitar préstamo</div>
+    ${totalDebt()>maxLoan?`<div class="warn-card"><div class="warn-text">⚠ Tu nivel de deuda es alto. El banco puede rechazar nuevos préstamos.</div></div>`:''}
+    <div class="ob-field">
+      <label class="ob-label">Monto del préstamo</label>
+      <input class="ob-input" type="number" inputmode="numeric" placeholder="Ej. 50000" value="${lma}"
+        oninput="S.loanAmt=parseFloat(this.value)||50000;document.getElementById('loan-preview').innerHTML=loanPreview()">
+    </div>
+    <div class="ob-field">
+      <label class="ob-label">Plazo (meses)</label>
+      <select class="ob-input" onchange="S.loanMonths=parseInt(this.value);document.getElementById('loan-preview').innerHTML=loanPreview()">
+        ${[12,24,36,48,60].map(m=>`<option value="${m}" ${m===lmt?'selected':''}>${m} meses (${m/12} año${m/12>1?'s':''})</option>`).join('')}
+      </select>
+    </div>
+    <div id="loan-preview" style="margin-bottom:14px">${loanPreview()}</div>
+    <button class="btn-primary" onclick="takeLoan()">Solicitar préstamo</button>
+  </div>
+  <div style="height:8px"></div>`;
+}
+
+function loanPreview(){
+  const monthlyRate=0.30/12;
+  const lmt=S.loanMonths||24;
+  const lma=S.loanAmt||50000;
+  const factor=(monthlyRate*Math.pow(1+monthlyRate,lmt))/(Math.pow(1+monthlyRate,lmt)-1);
+  const monthly=Math.round(lma*factor);
+  const totalPay=monthly*lmt;
+  return `<div style="background:var(--cream);border-radius:2px;padding:12px;font-size:12px">
+    <div style="display:flex;justify-content:space-between;margin-bottom:5px"><span style="color:var(--stone)">Pago mensual</span><span style="font-weight:500">${fmt(monthly)}</span></div>
+    <div style="display:flex;justify-content:space-between;margin-bottom:5px"><span style="color:var(--stone)">Total a pagar</span><span style="font-weight:500">${fmt(totalPay)}</span></div>
+    <div style="display:flex;justify-content:space-between"><span style="color:var(--stone)">Intereses totales</span><span style="font-weight:500;color:var(--danger)">${fmt(totalPay-lma)}</span></div>
+  </div>`;
+}
+
+function takeLoan(){
+  const monthlyRate=0.30/12;
+  const lmt=S.loanMonths||24;
+  const lma=S.loanAmt||50000;
+  const maxLoan=totalIncome()*6;
+  if(totalDebt()>maxLoan){alert('Tu nivel de deuda es demasiado alto para un nuevo préstamo.');return;}
+  const factor=(monthlyRate*Math.pow(1+monthlyRate,lmt))/(Math.pow(1+monthlyRate,lmt)-1);
+  const monthly=Math.round(lma*factor);
+  S.loans.push({id:S.nextLoanId++,name:`Préstamo #${S.nextLoanId-1}`,original:lma,remaining:lma,monthly,monthsLeft:lmt});
+  S.savings+=lma;
+  S.estabilidad=Math.max(0,S.estabilidad-10);
+  S.events.unshift({type:'loan',month:S.month,icon:'💳',title:'Préstamo solicitado',desc:`${fmt(lma)} en ${lmt} meses · ${fmt(monthly)}/mes`,pos:false});
+  renderGame();
+}
+
+// FAMILIA TAB
+function tabFamilia(){
+  const hasPartner=['couple','family1','family2','family3'].includes(S.familyType)&&!S.separated;
+  const hasChildren=['family1','family2','family3','singleParent'].includes(S.familyType);
+  const relColor=S.relacion>=70?'var(--sage)':S.relacion>=40?'var(--gold)':'var(--danger)';
+  return `
+  <div class="sec-h">Familia</div>
+  <div class="sec-sh">El bienestar de tu hogar</div>
+
+  ${S.separated?`<div class="warn-card"><div class="warn-text">⚠ Tu relación ha sufrido una separación. Los gastos del hogar recaen sobre ti solo/a.</div></div>`:''}
+
+  <div class="mem-card">
+    <div class="mem-l"><div class="mem-av">👤</div>
+    <div><div class="mem-name">${S.playerName}</div><div class="mem-role">Titular</div></div></div>
+    <div class="mem-r"><div class="mem-income">${fmt(S.playerIncome)}/mes</div><div class="mem-label">Ingreso</div></div>
+  </div>
+
+  ${hasPartner?`<div class="mem-card">
+    <div class="mem-l"><div class="mem-av">👤</div>
+    <div><div class="mem-name">${S.partnerName||'Pareja'}</div><div class="mem-role">Pareja</div></div></div>
+    <div class="mem-r"><div class="mem-income">${fmt(S.partnerIncome)}/mes</div><div class="mem-label">Ingreso</div></div>
+  </div>`:''}
+
+  ${hasChildren&&S.childrenNames.filter(n=>n).map((n,i)=>`
+  <div class="mem-card">
+    <div class="mem-l"><div class="mem-av">👧</div>
+    <div><div class="mem-name">${n||'Hijo '+(i+1)}</div><div class="mem-role">Hijo/a</div></div></div>
+    <div class="mem-r"><div style="font-size:12px;color:var(--stone)">Dependiente</div></div>
+  </div>`).join('')}
+
+  ${['couple','family1','family2','family3'].includes(S.familyType)?`
+  <div class="card" style="margin-top:4px">
+    <div style="font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--stone);margin-bottom:12px">Salud de la relación</div>
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:12px">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:300;color:${relColor}">${Math.round(S.relacion)}</div>
+      <div>
+        <div style="font-size:14px;font-weight:500">${S.relacion>=70?'💑 Muy sólida':S.relacion>=50?'😐 Con tensiones':S.relacion>=30?'😟 En dificultades':'💔 En crisis'}</div>
+        <div style="font-size:12px;color:var(--stone);margin-top:2px">${S.relacion>=70?'La familia está unida y comunicada.':S.relacion>=50?'Hay estrés financiero que afecta la pareja.':S.relacion>=30?'La situación económica genera conflictos.':'La separación es una posibilidad real.'}</div>
+      </div>
+    </div>
+    <div style="height:5px;background:var(--cream-d);border-radius:5px;overflow:hidden;margin-bottom:12px">
+      <div style="height:100%;width:${S.relacion}%;background:${relColor};border-radius:5px;transition:width .5s"></div>
+    </div>
+    ${S.relacion<40&&!S.separated?`
+    <div class="warn-card">
+      <div class="warn-text">⚠ La relación está muy tensa. Si el indicador cae a 15 o menos, ocurrirá una separación automática.</div>
+    </div>
+    <button class="btn-danger" onclick="forceSeparation()" style="margin-top:8px;width:100%">Separarse voluntariamente</button>`:''}
+  </div>`:''}
+
+  <div class="card" style="margin-top:4px">
+    <div style="font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--stone);margin-bottom:12px">Consejos para mejorar</div>
+    ${S.felicidad<60?'<div style="font-size:13px;color:var(--stone);padding:6px 0;border-bottom:1px solid var(--cream-d)">😔 Aumenta el presupuesto de entretenimiento y vacaciones</div>':''}
+    ${S.salud<60?'<div style="font-size:13px;color:var(--stone);padding:6px 0;border-bottom:1px solid var(--cream-d)">🏥 Incrementa el gasto en salud y medicamentos</div>':''}
+    ${S.relacion<60&&['couple','family1','family2','family3'].includes(S.familyType)?'<div style="font-size:13px;color:var(--stone);padding:6px 0;border-bottom:1px solid var(--cream-d)">💑 Destina más a vacaciones y actividades familiares</div>':''}
+    ${S.estabilidad<60?'<div style="font-size:13px;color:var(--stone);padding:6px 0">📊 Reduce deudas y aumenta tus inversiones</div>':''}
+    ${S.felicidad>=60&&S.salud>=60&&S.relacion>=60&&S.estabilidad>=60?'<div style="font-size:13px;color:var(--sage);padding:6px 0">✅ ¡Todo va muy bien! Mantén el balance.</div>':''}
+  </div>
+  <div style="height:8px"></div>`;
+}
+
+function forceSeparation(){
+  if(!confirm('¿Confirmas la separación? Esto impactará tus finanzas y métricas.')) return;
+  S.separated=true;
+  S.partnerIncome=0;
+  S.relacion=5;
+  S.felicidad=Math.max(10,S.felicidad-20);
+  S.expenses.vivienda=Math.round(S.expenses.vivienda*1.3);
+  S.events.unshift({type:'family',month:S.month,icon:'💔',title:'Separación',desc:'La pareja ha decidido separarse. Los gastos se redistribuyen.',pos:false});
+  renderGame();
+}
+
+// EVENTOS TAB
+function tabEventos(){
+  const evType=e=>e.pos?'ev-pos':'ev-neg';
+  return `
+  <div class="sec-h">Historial</div>
+  <div class="sec-sh">${S.events.length} eventos registrados</div>
+  ${S.events.length===0?'<div style="color:var(--stone);font-size:14px;padding:20px 0">Sin eventos aún. ¡Avanza al primer mes!</div>':''}
+  ${S.events.map(e=>`
+  <div class="ev-item">
+    <div class="ev-icon ${evType(e)}">${e.icon||'📋'}</div>
+    <div class="ev-body">
+      <div class="ev-title">${e.title}</div>
+      <div class="ev-desc">${e.desc}</div>
+    </div>
+    <div class="ev-date">${monthName(e.month)}</div>
+  </div>`).join('')}
+  <div style="height:8px"></div>`;
+}
+
+// ===================================================
+// MONTHLY ADVANCE
+// ===================================================
+const randomEvents=[
+  {ico:'🎁',title:'Bono de fin de año',desc:'Tu empresa te entregó un bono extraordinario.',type:'pos',
+   fn:s=>{const b=Math.round(s.playerIncome*0.15);s.savings+=b;s.felicidad=Math.min(100,s.felicidad+7);return`+${fmt(b)} en ahorros`;}},
+  {ico:'📊',title:'Aumento de sueldo',desc:'Tu desempeño fue reconocido con un aumento del 8%.',type:'pos',
+   fn:s=>{const b=Math.round(s.playerIncome*0.08);s.playerIncome+=b;s.felicidad=Math.min(100,s.felicidad+10);s.estabilidad=Math.min(100,s.estabilidad+5);return`Sueldo +${fmt(b)}/mes`;}},
+  {ico:'🏆',title:'Premio inesperado',desc:'Ganaste un concurso o sorteo. ¡Felicidades!',type:'pos',
+   fn:s=>{const b=15000+Math.round(Math.random()*30000);s.savings+=b;s.felicidad=Math.min(100,s.felicidad+12);return`+${fmt(b)} ganados`;}},
+  {ico:'💼',title:'Ingreso extra',desc:'Un proyecto freelance o consultoría generó ingresos adicionales.',type:'pos',
+   fn:s=>{const b=Math.round(s.playerIncome*0.2);s.savings+=b;return`+${fmt(b)} extra este mes`;}},
+  {ico:'🏘',title:'Renta de propiedad familiar',desc:'Una propiedad familiar generó ingresos de renta.',type:'pos',
+   fn:s=>{const b=8000+Math.round(Math.random()*10000);s.savings+=b;s.estabilidad=Math.min(100,s.estabilidad+3);return`+${fmt(b)} en renta`;}},
+  {ico:'🚗',title:'Accidente de tráfico',desc:'Un accidente provocó gastos en reparaciones y médicos.',type:'neg',
+   fn:s=>{const c=15000+Math.round(Math.random()*30000);s.savings-=c;s.salud=Math.max(0,s.salud-8);s.felicidad=Math.max(0,s.felicidad-7);return`-${fmt(c)} en reparación`;}},
+  {ico:'🤒',title:'Enfermedad en la familia',desc:'Un integrante necesitó atención médica urgente.',type:'neg',
+   fn:s=>{const c=8000+Math.round(Math.random()*40000);s.savings-=c;s.salud=Math.max(0,s.salud-12);s.felicidad=Math.max(0,s.felicidad-5);return`-${fmt(c)} en salud`;}},
+  {ico:'🦹',title:'Robo o asalto',desc:'Fuiste víctima de un robo. Cuídate más.',type:'neg',
+   fn:s=>{const c=5000+Math.round(Math.random()*20000);s.savings-=c;s.felicidad=Math.max(0,s.felicidad-10);s.relacion=Math.max(0,s.relacion-4);return`-${fmt(c)} perdidos`;}},
+  {ico:'📉',title:'Inflación acelerada',desc:'Los precios básicos subieron 6% este mes.',type:'neg',
+   fn:s=>{['vivienda','alimentacion','transporte','servicios'].forEach(k=>{s.expenses[k]=Math.round(s.expenses[k]*1.06);});s.estabilidad=Math.max(0,s.estabilidad-7);return'Gastos básicos +6%';}},
+  {ico:'🔧',title:'Reparación urgente del hogar',desc:'Se requirió una reparación inesperada en casa.',type:'neg',
+   fn:s=>{const c=8000+Math.round(Math.random()*18000);s.savings-=c;return`-${fmt(c)} en reparación`;}},
+  {ico:'📋',title:'Multa o trámite legal',desc:'Un asunto legal requirió gastos inesperados.',type:'neg',
+   fn:s=>{const c=3000+Math.round(Math.random()*10000);s.savings-=c;s.felicidad=Math.max(0,s.felicidad-4);return`-${fmt(c)} en trámites`;}},
+  {ico:'💼',title:'Pérdida temporal de empleo',desc:'Recortes en la empresa. Sin ingresos por 2 meses.',type:'neg',
+   fn:s=>{const c=s.playerIncome*2;s.savings-=c;s.felicidad=Math.max(0,s.felicidad-18);s.relacion=Math.max(0,s.relacion-10);s.estabilidad=Math.max(0,s.estabilidad-18);return`-${fmt(c)} en ingresos perdidos`;}},
+  {ico:'🍼',title:'Nuevo integrante en camino',desc:'¡Bebé en camino! Ajusta tus gastos.',type:'neu',
+   fn:s=>{s.expenses.salud+=2000;s.expenses.educacion+=1000;s.felicidad=Math.min(100,s.felicidad+5);s.relacion=Math.min(100,s.relacion+6);return'Gastos de bebé: +$3,000/mes';}},
+  {ico:'📱',title:'Gasto tecnológico',desc:'Necesitaste reemplazar equipo electrónico.',type:'neg',
+   fn:s=>{const c=8000+Math.round(Math.random()*15000);s.savings-=c;return`-${fmt(c)} en tecnología`;}},
+  {ico:'🎓',title:'Beca o apoyo educativo',desc:'Tu hijo obtuvo una beca que reduce gastos educativos.',type:'pos',
+   fn:s=>{const b=Math.round(s.expenses.educacion*0.3);s.expenses.educacion=Math.max(0,s.expenses.educacion-b);s.felicidad=Math.min(100,s.felicidad+8);return`Educación -${fmt(b)}/mes`;}},
+  {ico:'💉',title:'Campaña de vacunación',desc:'Aprovechaste la campaña de salud pública gratuita.',type:'pos',
+   fn:s=>{s.salud=Math.min(100,s.salud+8);return'Salud familiar mejorada +8';}},
+];
+
+// ===================================================
+// LONG-TERM PURCHASES
+// ===================================================
+const ltpPresets=[
+  {name:'Auto seminuevo',cost:180000,months:48,ico:'🚗'},
+  {name:'Auto nuevo',cost:350000,months:60,ico:'🚘'},
+  {name:'Enganche depto.',cost:200000,months:60,ico:'🏠'},
+  {name:'Laptop/equipo',cost:25000,months:18,ico:'💻'},
+  {name:'Moto',cost:60000,months:24,ico:'🏍'},
+  {name:'Muebles',cost:40000,months:18,ico:'🛋'},
+  {name:'Viaje/vacaciones',cost:30000,months:12,ico:'✈️'},
+  {name:'Electrónica',cost:20000,months:12,ico:'📺'},
+];
+
+function calcLTPMonthly(cost,months,rate){
+  const r=rate/12;
+  if(r===0) return Math.round(cost/months);
+  const factor=(r*Math.pow(1+r,months))/(Math.pow(1+r,months)-1);
+  return Math.round(cost*factor);
+}
+
+function buildLTPSection(){
+  const f=S.ltpForm;
+  const previewMonthly=f.cost>0?calcLTPMonthly(f.cost,f.months,f.rate):0;
+  return `
+  <div class="ltp-section">
+    <div class="ltp-section-h">
+      <span>🛒 Compras a Largo Plazo</span>
+      <button class="btn-add-ltp" onclick="S.ltpForm.show=!S.ltpForm.show;renderGame()">
+        ${f.show?'✕ Cancelar':'+ Agregar'}
+      </button>
+    </div>
+
+    ${f.show?`
+    <div class="ltp-form">
+      <div class="ltp-form-title">Nueva compra a plazo</div>
+      <div style="font-size:11px;color:var(--stone);margin-bottom:10px">Acceso rápido:</div>
+      <div class="ltp-presets">
+        ${ltpPresets.map(p=>`<div class="ltp-preset" onclick="applyLTPPreset(${JSON.stringify(p).replace(/"/g,"'")})">
+          ${p.ico} ${p.name}
+        </div>`).join('')}
+      </div>
+      <div class="ob-field" style="margin-bottom:14px">
+        <label class="ob-label">Nombre del artículo</label>
+        <input class="ob-input" type="text" id="ltp-name" placeholder="Ej. Honda Civic 2022" value="${f.name}"
+          oninput="S.ltpForm.name=this.value">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
+        <div>
+          <label class="ob-label">Costo total (MXN)</label>
+          <input class="ob-input" type="number" inputmode="numeric" id="ltp-cost" value="${f.cost||''}" placeholder="180000"
+            oninput="S.ltpForm.cost=parseFloat(this.value)||0;document.getElementById('ltp-preview').innerHTML=ltpPreviewHTML()">
+        </div>
+        <div>
+          <label class="ob-label">Plazo (meses)</label>
+          <select class="ob-input" onchange="S.ltpForm.months=parseInt(this.value);document.getElementById('ltp-preview').innerHTML=ltpPreviewHTML()">
+            ${[12,18,24,36,48,60].map(m=>`<option value="${m}" ${m===f.months?'selected':''}>${m} meses</option>`).join('')}
+          </select>
+        </div>
+      </div>
+      <div style="margin-bottom:14px">
+        <label class="ob-label">Tasa anual (interés)</label>
+        <select class="ob-input" onchange="S.ltpForm.rate=parseFloat(this.value);document.getElementById('ltp-preview').innerHTML=ltpPreviewHTML()">
+          <option value="0" ${f.rate===0?'selected':''}>0% — Crédito sin intereses / MSI</option>
+          <option value="0.12" ${f.rate===0.12?'selected':''}>12% — Crédito departamental bajo</option>
+          <option value="0.18" ${f.rate===0.18?'selected':''}>18% — Crédito típico tarjeta</option>
+          <option value="0.24" ${f.rate===0.24?'selected':''}>24% — Financiamiento automotriz</option>
+          <option value="0.36" ${f.rate===0.36?'selected':''}>36% — Crédito personal alto</option>
+        </select>
+      </div>
+      <div id="ltp-preview">${ltpPreviewHTML()}</div>
+      <button class="btn-primary" onclick="addLTP()" style="margin-top:4px">Confirmar compra</button>
+    </div>`:''}
+
+    ${(S.ltp||[]).length===0&&!f.show?`
+    <div style="background:var(--white);border:1px solid var(--cream-d);border-radius:4px;padding:22px;text-align:center">
+      <div style="font-size:28px;margin-bottom:8px">🛒</div>
+      <div style="font-size:13px;color:var(--stone)">Sin compras a plazo activas</div>
+    </div>`:''}
+
+    ${(S.ltp||[]).map(p=>{
+      const paid=p.original-p.remaining;
+      const pct=Math.round(paid/p.original*100);
+      return `
+      <div class="ltp-card">
+        <div class="ltp-card-h">
+          <div>
+            <div class="ltp-card-name">${p.ico} ${p.name}</div>
+            <div style="font-size:10px;color:var(--stone);margin-top:2px">${p.monthsLeft} meses restantes</div>
+          </div>
+          <div style="text-align:right">
+            <div class="ltp-card-monthly">-${fmt(p.monthly)}/mes</div>
+            <div style="font-size:10px;color:var(--stone)">Saldo: ${fmt(p.remaining)}</div>
+          </div>
+        </div>
+        <div class="ltp-progress"><div class="ltp-progress-fill" style="width:${pct}%"></div></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px">
+          <div class="ltp-info">${pct}% pagado · ${fmt(paid)} de ${fmt(p.original)}</div>
+          <button class="btn-del" onclick="removeLTP(${p.id})">Liquidar</button>
+        </div>
+      </div>`;
+    }).join('')}
+  </div>`;
+}
+
+function ltpPreviewHTML(){
+  const f=S.ltpForm;
+  if(!f.cost) return '';
+  const monthly=calcLTPMonthly(f.cost,f.months,f.rate);
+  const total=monthly*f.months;
+  return `<div style="background:var(--cream-d);border-radius:3px;padding:12px;font-size:12px;margin-bottom:4px">
+    <div style="display:flex;justify-content:space-between;margin-bottom:5px"><span style="color:var(--stone)">Pago mensual</span><span style="font-weight:600;color:var(--terra)">${fmt(monthly)}</span></div>
+    <div style="display:flex;justify-content:space-between;margin-bottom:5px"><span style="color:var(--stone)">Total a pagar</span><span style="font-weight:500">${fmt(total)}</span></div>
+    <div style="display:flex;justify-content:space-between"><span style="color:var(--stone)">Intereses totales</span><span style="color:${f.rate>0?'var(--danger)':'var(--sage)'}">${fmt(total-f.cost)}</span></div>
+  </div>`;
+}
+
+function applyLTPPreset(p){
+  S.ltpForm.name=p.name; S.ltpForm.cost=p.cost; S.ltpForm.months=p.months;
+  renderGame();
+  // Small scroll to form
+  setTimeout(()=>{const el=document.getElementById('ltp-name');if(el){el.focus();}},100);
+}
+
+function addLTP(){
+  const f=S.ltpForm;
+  if(!f.name||!f.cost||f.cost<=0){alert('Completa el nombre y costo.');return;}
+  const monthly=calcLTPMonthly(f.cost,f.months,f.rate);
+  S.ltp.push({
+    id:S.nextLtpId++, name:f.name, ico:'🛒',
+    original:f.cost, remaining:f.cost, monthly,
+    monthsLeft:f.months, rate:f.rate
+  });
+  S.estabilidad=Math.max(0,S.estabilidad-5);
+  S.events.unshift({type:'ltp',month:S.month,icon:'🛒',title:`Compra a plazo: ${f.name}`,desc:`${fmt(f.cost)} en ${f.months} meses · ${fmt(monthly)}/mes`,pos:false});
+  S.ltpForm={show:false,name:'',cost:0,months:36,rate:0.12};
+  renderGame();
+}
+
+function removeLTP(id){
+  const p=S.ltp.find(x=>x.id===id);
+  if(!p) return;
+  if(!confirm(`¿Liquidar "${p.name}"? Se pagará el saldo restante de ${fmt(p.remaining)} con tus ahorros.`)) return;
+  S.savings-=p.remaining;
+  S.estabilidad=Math.min(100,S.estabilidad+5);
+  S.events.unshift({type:'ltp',month:S.month,icon:'✅',title:`Compra liquidada: ${p.name}`,desc:`Pagaste el saldo de ${fmt(p.remaining)} anticipadamente.`,pos:true});
+  S.ltp=S.ltp.filter(x=>x.id!==id);
+  renderGame();
+}
+
+// ===================================================
+// FAMILY ADD MODAL
+// ===================================================
+let _pendingFamShow=false;
+
+function openFamModal(){
+  _pendingFamShow=false;
+  document.getElementById('fam-modal').classList.remove('hidden');
+  document.getElementById('fam-add-form').classList.remove('show');
+  document.getElementById('fam-add-fields').innerHTML='';
+}
+
+function closeFamModal(){
+  document.getElementById('fam-modal').classList.add('hidden');
+}
+
+function selectFamAdd(type){
+  if(type==='none'){closeFamModal();return;}
+  S.famAddType=type;
+  const form=document.getElementById('fam-add-form');
+  form.classList.add('show');
+  const fields=document.getElementById('fam-add-fields');
+  if(type==='partner'){
+    if(['couple','family1','family2','family3'].includes(S.familyType)&&!S.separated){
+      fields.innerHTML='<div style="color:var(--terra);font-size:13px;padding:8px 0 12px">Ya tienes pareja registrada.</div>';
+      return;
+    }
+    fields.innerHTML=`
+    <div class="ob-field"><label class="ob-label">Nombre de la pareja</label>
+    <input class="ob-input" id="fam-partner-name" type="text" placeholder="Nombre" value="${S.partnerName}"></div>
+    <div class="ob-field"><label class="ob-label">Ingreso mensual (0 si no trabaja)</label>
+    <input class="ob-input" id="fam-partner-income" type="number" inputmode="numeric" placeholder="0" value="${S.partnerIncome||''}"></div>`;
+  } else if(type==='child'){
+    fields.innerHTML=`
+    <div class="ob-field"><label class="ob-label">Nombre del hijo/a</label>
+    <input class="ob-input" id="fam-child-name" type="text" placeholder="Nombre"></div>
+    <div style="font-size:12px;color:var(--stone);margin-bottom:12px">Se ajustarán gastos de salud (+$1,500) y educación (+$1,000) automáticamente.</div>`;
+  } else if(type==='relative'){
+    fields.innerHTML=`
+    <div class="ob-field"><label class="ob-label">Nombre del familiar</label>
+    <input class="ob-input" id="fam-rel-name" type="text" placeholder="Ej. Abuela María"></div>
+    <div style="font-size:12px;color:var(--stone);margin-bottom:12px">Se incrementarán gastos de salud (+$1,000) y alimentación (+$800).</div>`;
+  }
+}
+
+function confirmFamAdd(){
+  const type=S.famAddType;
+  if(type==='partner'){
+    const name=document.getElementById('fam-partner-name')?.value||'Pareja';
+    const income=parseFloat(document.getElementById('fam-partner-income')?.value)||0;
+    S.partnerName=name; S.partnerIncome=income;
+    if(!['couple','family1','family2','family3'].includes(S.familyType)) S.familyType='couple';
+    S.separated=false;
+    S.relacion=Math.min(100,S.relacion+15);
+    S.felicidad=Math.min(100,S.felicidad+10);
+    S.events.unshift({type:'family',month:S.month,icon:'💑',title:`Nueva pareja: ${name}`,desc:`${name} se integró al hogar con ingreso de ${fmt(income)}/mes`,pos:true});
+  } else if(type==='child'){
+    const name=document.getElementById('fam-child-name')?.value||'Hijo/a';
+    S.childrenNames.push(name);
+    S.expenses.salud+=1500; S.expenses.educacion+=1000;
+    if(!['family1','family2','family3','singleParent'].includes(S.familyType)){
+      S.familyType=S.partnerName?'family1':'singleParent';
+    } else if(S.familyType==='family1') S.familyType='family2';
+    else if(S.familyType==='family2') S.familyType='family3';
+    S.felicidad=Math.min(100,S.felicidad+8);
+    S.relacion=Math.min(100,(S.relacion||75)+8);
+    S.events.unshift({type:'family',month:S.month,icon:'👶',title:`Nuevo integrante: ${name}`,desc:`Gastos ajustados: +$2,500/mes en salud y educación`,pos:true});
+  } else if(type==='relative'){
+    const name=document.getElementById('fam-rel-name')?.value||'Familiar';
+    S.childrenNames.push(name);
+    S.expenses.salud+=1000; S.expenses.alimentacion+=800;
+    S.felicidad=Math.min(100,S.felicidad+5);
+    S.events.unshift({type:'family',month:S.month,icon:'👴',title:`Familiar dependiente: ${name}`,desc:`Gastos ajustados: +$1,800/mes`,pos:true});
+  }
+  closeFamModal();
+  renderGame();
+}
+
+function advanceMonth(){
+  if(S.month>60||S.gameOver) return;
+  const inc=totalIncome();
+  const exp=totalExp();
+  const loanPay=totalLoanPay();
+  const ltpPay=totalLTPPay();
+  const net=inc-exp-loanPay-ltpPay;
+
+  // Apply net flow
+  S.savings+=net;
+
+  // Apply investment returns
+  Object.keys(S.investments).forEach(k=>{
+    const inv=S.investments[k];
+    if(inv.bal<=0) return;
+    let ret;
+    if(k==='bmv'){
+      const drift=0.01;
+      const shock=(Math.random()-0.5)*2*inv.vol;
+      ret=drift+shock;
+    } else if(k==='crypto'){
+      const shock=(Math.random()-0.5)*2*inv.vol;
+      ret=0.005+shock;
+    } else {
+      ret=inv.rate;
+    }
+    inv.bal=Math.round(inv.bal*(1+ret));
+    if(inv.bal<0) inv.bal=0;
+  });
+
+  // Update loans
+  S.loans.forEach(l=>{
+    const interest=Math.round(l.remaining*(0.30/12));
+    const principal=Math.max(0,l.monthly-interest);
+    l.remaining=Math.max(0,l.remaining-principal);
+    l.monthsLeft=Math.max(0,l.monthsLeft-1);
+  });
+  S.loans=S.loans.filter(l=>l.remaining>0&&l.monthsLeft>0);
+
+  // Update long-term purchases
+  (S.ltp||[]).forEach(p=>{
+    if(p.rate>0){
+      const interest=Math.round(p.remaining*(p.rate/12));
+      const principal=Math.max(0,p.monthly-interest);
+      p.remaining=Math.max(0,p.remaining-principal);
+    } else {
+      p.remaining=Math.max(0,p.remaining-p.monthly);
+    }
+    p.monthsLeft=Math.max(0,p.monthsLeft-1);
+  });
+  S.ltp=(S.ltp||[]).filter(p=>p.remaining>0&&p.monthsLeft>0);
+
+  // Update metrics
+  const needsPct=needsExp()/inc;
+  const savPct=savingsExp()/inc;
+  const debtRatio=totalDebt()/(inc*12||1);
+
+  if(net>0) S.felicidad=Math.min(100,S.felicidad+2);
+  else S.felicidad=Math.max(0,S.felicidad-4);
+  if(S.expenses.entretenimiento>inc*0.04) S.felicidad=Math.min(100,S.felicidad+1);
+  if(S.expenses.vacaciones>inc*0.02) S.felicidad=Math.min(100,S.felicidad+1);
+  if(debtRatio>0.4) S.felicidad=Math.max(0,S.felicidad-2);
+
+  if(S.expenses.salud>inc*0.03) S.salud=Math.min(100,S.salud+1);
+  else S.salud=Math.max(0,S.salud-1);
+  S.salud=Math.min(100,S.salud+0.5);
+
+  if(['couple','family1','family2','family3'].includes(S.familyType)&&!S.separated){
+    if(net>0) S.relacion=Math.min(100,S.relacion+1);
+    else S.relacion=Math.max(0,S.relacion-2);
+    if(S.expenses.vacaciones>inc*0.02) S.relacion=Math.min(100,S.relacion+1);
+    if(debtRatio>0.5) S.relacion=Math.max(0,S.relacion-1);
+  }
+
+  if(savPct>=0.2) S.estabilidad=Math.min(100,S.estabilidad+2);
+  else if(savPct<0.1) S.estabilidad=Math.max(0,S.estabilidad-1);
+  if(debtRatio>0.3) S.estabilidad=Math.max(0,S.estabilidad-2);
+  else S.estabilidad=Math.min(100,S.estabilidad+1);
+  if(totalInvValue()>inc*3) S.estabilidad=Math.min(100,S.estabilidad+1);
+
+  if(S.felicidad<30) S.unhappyStreak++; else S.unhappyStreak=0;
+
+  if(S.relacion<=15&&['couple','family1','family2','family3'].includes(S.familyType)&&!S.separated){
+    S.separated=true; S.partnerIncome=0;
+    S.felicidad=Math.max(0,S.felicidad-20);
+    S.events.unshift({type:'family',month:S.month,icon:'💔',title:'Separación automática',desc:'La relación llegó a su punto crítico. La familia se separó.',pos:false});
+  }
+
+  // ⚡ SIEMPRE ocurre un evento aleatorio cada mes
+  const ev=randomEvents[Math.floor(Math.random()*randomEvents.length)];
+  const impact=ev.fn(S);
+  S.events.unshift({type:'random',month:S.month,icon:ev.ico,title:ev.title,desc:ev.desc+' · '+impact,pos:ev.type==='pos'});
+  S.pendingEvent={ico:ev.ico,title:ev.title,desc:ev.desc,impact,pos:ev.type==='pos',neu:ev.type==='neu'};
+
+  // Log month
+  S.events.unshift({type:'month',month:S.month,icon:net>=0?'📅':'📉',title:`Mes ${S.month} completado — ${monthName(S.month)}`,desc:`Flujo neto: ${fmt(net)} · Patrimonio: ${fmt(netWorth())}`,pos:net>=0});
+
+  S.month++;
+  checkEndings();
+  renderGame();
+
+  if(!S.gameOver){
+    showEventModal(); // Always show event — closeModal will chain to family modal
+  }
+}
+
+// ===================================================
+// ENDINGS
+// ===================================================
+function checkEndings(){
+  if(S.gameOver) return;
+
+  // Quiebra
+  if(S.savings<-(totalIncome()*3)&&totalDebt()>totalIncome()*8){
+    triggerEnding('quiebra');return;
+  }
+  // Infelicidad crónica
+  if(S.unhappyStreak>=4){
+    triggerEnding('infelicidad');return;
+  }
+  // Divorcio
+  if(S.relacion<=5&&['couple','family1','family2','family3'].includes(S.familyType)&&!S.separated){
+    triggerEnding('divorcio');return;
+  }
+  // Éxito: completar 60 meses
+  if(S.month>60){
+    triggerEnding('exito');return;
+  }
+}
+
+function triggerEnding(type){
+  S.gameOver=true;
+  S.ending=type;
+  const endings={
+    exito:{ico:'🌟',title:'¡5 Años de Abundancia!',desc:`Lo lograste, ${S.playerName}. Completaste tu simulación de 5 años con éxito. Tu familia encontró el equilibrio entre las necesidades del presente y la seguridad del futuro.`},
+    quiebra:{ico:'📉',title:'Quiebra financiera',desc:'Las deudas acumuladas superaron tu capacidad de pago. El estrés financiero destrozó el bienestar del hogar. Es momento de empezar de cero con nuevas estrategias.'},
+    infelicidad:{ico:'😞',title:'Infelicidad crónica',desc:'A pesar de los recursos, la familia vivió en un estado de malestar prolongado. El dinero no lo es todo — el bienestar emocional y la salud son igual de importantes.'},
+    divorcio:{ico:'💔',title:'Separación definitiva',desc:'Las tensiones financieras y el estrés acumulado terminaron con la relación. La familia ahora enfrenta un nuevo capítulo por separado.'}
+  };
+  const e=endings[type];
+  setTimeout(()=>{
+    document.getElementById('game').classList.add('hidden');
+    const go=document.getElementById('gameover');
+    go.classList.remove('hidden');
+    document.getElementById('go-ico').textContent=e.ico;
+    document.getElementById('go-h').textContent=e.title;
+    document.getElementById('go-d').textContent=e.desc;
+    document.getElementById('go-stats').innerHTML=`
+      <div class="go-row"><span class="go-key">Meses completados</span><span class="go-v">${S.month-1} de 60</span></div>
+      <div class="go-row"><span class="go-key">Patrimonio final</span><span class="go-v" style="color:${netWorth()>=0?'var(--sage)':'var(--danger)'}">${fmt(netWorth())}</span></div>
+      <div class="go-row"><span class="go-key">Ahorros</span><span class="go-v">${fmt(S.savings)}</span></div>
+      <div class="go-row"><span class="go-key">Portafolio inversiones</span><span class="go-v">${fmt(totalInvValue())}</span></div>
+      <div class="go-row"><span class="go-key">Felicidad final</span><span class="go-v">${Math.round(S.felicidad)}/100</span></div>
+      <div class="go-row"><span class="go-key">Salud final</span><span class="go-v">${Math.round(S.salud)}/100</span></div>
+    `;
+  },100);
+}
+
+// ===================================================
+// EVENT MODAL
+// ===================================================
+function showEventModal(){
+  const ev=S.pendingEvent;
+  if(!ev) return;
+  const bg=document.getElementById('ev-modal');
+  bg.innerHTML=`
+  <div class="modal">
+    <div class="modal-ico">${ev.ico}</div>
+    <div class="modal-h">${ev.title}</div>
+    <div class="modal-d">${ev.desc}</div>
+    <div class="modal-impact"><span style="color:${ev.pos?'var(--sage)':ev.neu?'var(--gold)':'var(--danger)'}">${ev.impact}</span></div>
+    <button class="btn-modal" onclick="closeModal()">Entendido</button>
+  </div>`;
+  bg.classList.remove('hidden');
+}
+
+function closeModal(){
+  document.getElementById('ev-modal').classList.add('hidden');
+  S.pendingEvent=null;
+  // Después del evento, cada 3 meses preguntar si hubo cambios familiares
+  if(S.month>1 && S.month%3===1 && !S.gameOver){
+    setTimeout(()=>openFamModal(), 200);
+  }
+}
+
+// ===================================================
+// RESTART
+// ===================================================
+function restart(){
+  document.getElementById('gameover').classList.add('hidden');
+  document.getElementById('cover').classList.remove('hidden');
+  initState();
+}
+</script>
+</body>
+</html>
